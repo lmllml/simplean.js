@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div {
+			height: 100px;
+			width: 100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+<div></div>
+<script type="text/javascript" src="../siman.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+	Siman('div').animate({
+		width: "200px",
+		height: "200px",
+		background: "blue",
+		transform: 'translateX(200px)'	
+	}, {
+		duration: "500",
+		onStart: function () {
+			console.log('hehe');
+		},
+		onStop: function () {
+			console.log('haha');
+		}
+	}).animate({
+		'border-radius': "50px"
+	}).animate({
+		background: 'black'
+	}, {
+		delay: '300',
+		duration: '300'
+	}).start();
+};
+</script>
+</body>
+</html>
