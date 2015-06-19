@@ -6,36 +6,35 @@
 		div {
 			height: 100px;
 			width: 100px;
-			background: red;
+			background: black;
 		}
 	</style>
 </head>
 <body>
-<div></div>
-<script type="text/javascript" src="../siman.js"></script>
+<div class="div1"></div>
+<div class="div2"></div>
+<script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
 window.onload = function () {
-	Siman('div').animate({
+	Simplean('div').to({
 		width: "200px",
-		height: "200px",
-		background: "blue",
-		transform: 'translateX(200px)'	
-	}, {
-		duration: "500",
-		onStart: function () {
-			console.log('hehe');
-		},
-		onStop: function () {
-			console.log('haha');
-		}
-	}).animate({
+		height: "300px",
 		'border-radius': "50px"
-	}).animate({
-		background: 'black'
 	}, {
-		delay: '300',
-		duration: '300'
-	}).start();
+		duration: 1000
+	}).to({
+		width: "100px",
+	}, {
+		delay: 1000,
+		duration: 1000
+	}).to({
+		background: 'red'	
+	}).to({
+		height: '100px'
+	}, {
+		duration: 300
+	});
+
 };
 </script>
 </body>
