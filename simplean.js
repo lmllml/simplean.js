@@ -109,6 +109,30 @@
 			removeEvent: function (dom, eventType, listener, capture) {
 				dom.removeEventListener(eventType, listener, capture);
 			},
+			diffStyle: function (style1, style2) {
+				return ['width', 'height'];
+			},
+			getTransition: function (properties, options) {
+				var delay = options.delay || '0ms';
+				var duration = 0;
+				if (options.duration !== 0) {
+					duration = options.duration || '300ms';
+				}
+				var ease = options.ease || 'linear';
+				if (delay.toString().indexOf('ms') < 0) {
+					delay = delay + 'ms';
+				}
+				if (duration.toString().indexOf('ms') < 0) {
+					duration = duration + 'ms';
+				}
+
+				return {
+					transitionProperty: properties.join(','),
+					transitionDelay: delay,
+					transitionDuration: duration,
+					transitionTimingFunction: ease
+				};
+			},
 			invokeIfExists: function (func, args, context) {
 				if (typeof func === 'function') {
 					func.apply(context, args);
@@ -116,7 +140,7 @@
 			},
 			relayout: function (dom) {
 				Utility.getComputedStyle(dom).width;
-			}
+			},
 		};
 	})();
 
@@ -141,7 +165,7 @@
 		} else if (typeof selector === 'object') {
 			dom = selector;
 		} else {
-			throw new Error('selector is null');
+			throw new Error('selector is uncorrect');
 		}
 
 		var simplean = simpleanMap.get(dom);
@@ -178,7 +202,11 @@
 				Utility.invokeIfExists(phase.onStart);
 				Utility.relayout(self._dom);
 				Utility.css(self._dom, phase.transition);
-				Utility.css(self._dom, phase.styles);
+				if (phase.style) {
+					Utility.css(self._dom, phase.styles);
+				} else if (phase.targetClassName) {
+					self._dom.className = phase.targetClassName;
+				}
 				phase.status = 'start';
 				if (phase.transition.transitionDuration === '0ms')	 {
 					setTimeout(function () {
@@ -213,34 +241,62 @@
 		Utility.addEvent(self._dom, eventType, onPhaseEnd);
 	};
 
+	_Simplean.prototype.addClass = function (className, options) {
+		if (!className) {
+			return;
+		}
+		options = options || {};
+		var originClassName = this._dom.className;
+		if (originClassName.match('\\b' + className + '\\b')) {
+			return;
+		}
+		var targetClassName = originClassName + ' ' + className; 
+		var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
+
+		this._phaseList.push({
+			targetClassName: targetClassName,
+			transition: Utility.getTransition(properties, options),
+			onStart: options.onStart, 
+			onStop: options.onStop,
+			status: 'unstart'
+		});
+		this._start();
+		return this;
+	};
+
+	_Simplean.prototype.removeClass = function (className, options) {
+		if (!className) {
+			return;
+		}
+		options = options || {};
+		var originClassName = this._dom.className;
+		if (!originClassName.match('\\b' + className + '\\b')) {
+			return;
+		}
+
+		var targetClassName = originClassName.replace(className, '');
+		var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
+
+		this._phaseList.push({
+			targetClassName: targetClassName,
+			transition: Utility.getTransition(properties, options),
+			onStart: options.onStart, 
+			onStop: options.onStop,
+			status: 'unstart'
+		});
+		this._start();
+		
+		return this;
+	};
+
 	_Simplean.prototype.to = function (styles, options) {
 		var self = this;
 		styles = styles || {};
 		options = options || {};
 
-		var delay = options.delay || '0ms';
-		var duration = 0;
-		if (options.duration !== 0) {
-			duration = options.duration || '300ms';
-		}
-		var ease = options.ease || 'linear';
-		if (delay.toString().indexOf('ms') < 0) {
-			delay = delay + 'ms';
-		}
-		if (duration.toString().indexOf('ms') < 0) {
-			duration = duration + 'ms';
-		}
-
-		var transition = {
-			transitionProperty: Utility.keys(styles).join(','),
-			transitionDelay: delay,
-			transitionDuration: duration,
-			transitionTimingFunction: ease
-		};
-
 		self._phaseList.push({
 			styles: styles,
-			transition: transition,
+			transition: Utility.getTransition(Utility.keys(styles), options),
 			onStart: options.onStart, 
 			onStop: options.onStop,
 			status: 'unstart'
