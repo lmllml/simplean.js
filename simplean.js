@@ -231,6 +231,16 @@
 		var throughPhase = function () {
 			var phase = self._phaseList[self._phaseIndex];
 			if (phase && phase.status === 'unstart') {
+				if (phase.diffClassName) {
+					var originClassName = this._dom.className;
+					if (originClassName.match('\\b' + className + '\\b')) {
+						return;
+					}
+					var targetClassName = originClassName + ' ' + className; 
+					var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
+					phase.transition = Utility.getTransition(properties, options);
+				}
+
 				Utility.invokeIfExists(phase.onStart);
 				Utility.relayout(self._dom);
 				Utility.css(self._dom, phase.transition);
@@ -272,52 +282,28 @@
 		throughPhase();
 		Utility.addEvent(self._dom, eventType, onPhaseEnd);
 	};
-
-	_Simplean.prototype.addClass = function (className, options) {
+	_Simplean.prototype._setClass = function (diffClassName, options) {
 		if (!className) {
 			return;
 		}
 		options = options || {};
-		var originClassName = this._dom.className;
-		if (originClassName.match('\\b' + className + '\\b')) {
-			return;
-		}
-		var targetClassName = originClassName + ' ' + className; 
-		var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
 
 		this._phaseList.push({
-			targetClassName: targetClassName,
-			transition: Utility.getTransition(properties, options),
+			diffClassName: diffClassName,
 			onStart: options.onStart, 
 			onStop: options.onStop,
 			status: 'unstart'
 		});
 		this._start();
+	};
+
+	_Simplean.prototype.addClass = function (className, options) {
+		this._setClass('+ ' + className, options);
 		return this;
 	};
 
 	_Simplean.prototype.removeClass = function (className, options) {
-		if (!className) {
-			return;
-		}
-		options = options || {};
-		var originClassName = this._dom.className;
-		if (!originClassName.match('\\b' + className + '\\b')) {
-			return;
-		}
-
-		var targetClassName = originClassName.replace(className, '');
-		var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
-
-		this._phaseList.push({
-			targetClassName: targetClassName,
-			transition: Utility.getTransition(properties, options),
-			onStart: options.onStart, 
-			onStop: options.onStop,
-			status: 'unstart'
-		});
-		this._start();
-		
+		this._setClass('- ' + className, options);
 		return this;
 	};
 
