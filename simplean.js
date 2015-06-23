@@ -109,8 +109,39 @@
 			removeEvent: function (dom, eventType, listener, capture) {
 				dom.removeEventListener(eventType, listener, capture);
 			},
-			diffStyle: function (style1, style2) {
-				return ['width', 'height'];
+			diffStyle: function (dom, originClassName, targetClassName) {
+				var originTestDiv = document.createElement('div');
+				var targetTestDiv = document.createElement('div');
+				
+				originTestDiv.style.display = 'none';
+				targetTestDiv.style.display = 'none';
+
+				originTestDiv.className = originClassName;
+				targetTestDiv.className = targetClassName;
+
+				dom.parentNode.appendChild(originTestDiv);
+				dom.parentNode.appendChild(targetTestDiv);
+
+				var originStyles = Utility.getComputedStyle(originTestDiv);
+				var targetStyles = Utility.getComputedStyle(targetTestDiv);
+
+				var diff = function () {
+					var properties = [];
+					var needDiffStyles = ['width', 'height', 'padding', 'margin', 'lineHeight', 
+					'border-radius'];	
+					
+					for (var i = 0; i < needDiffStyles.length; i++) {
+						if (originStyles[needDiffStyles[i]] !== targetStyles[needDiffStyles[i]]) {
+							properties.push(needDiffStyles[i]);
+						}
+					}
+					originTestDiv.remove();
+					targetTestDiv.remove();
+
+					return properties;
+				};
+
+				return diff();
 			},
 			getTransition: function (properties, options) {
 				var delay = options.delay || '0ms';
@@ -150,6 +181,7 @@
 		eventPrefix = '',
 		testEl = document.createElement('div'),
 		simpleanMap = new Map();
+
   	Utility.each(vendors, function(vendor, event) {
   		if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
           cssPrefix = '-' + vendor.toLowerCase() + '-';

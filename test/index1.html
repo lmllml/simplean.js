@@ -12,6 +12,9 @@
 			width: 200px;
 			height: 200px;
 		}
+		.backgroundColor-red {
+			background: red;
+		}
 	</style>
 </head>
 <body>
@@ -39,7 +42,8 @@ window.onload = function () {
 		duration: 300
 	});
 
-	Simplean('.div2').addClass('width-200').removeClass('width-200');
+	Simplean('.div2').addClass('width-200').removeClass('width-200').addClass('backgroundColor-red');
+
 };
 </script>
 </body>
