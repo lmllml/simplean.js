@@ -109,35 +109,35 @@
 			removeEvent: function (dom, eventType, listener, capture) {
 				dom.removeEventListener(eventType, listener, capture);
 			},
-			diffStyle: function (dom, originClassName, targetClassName) {
-				var originTestDiv = document.createElement('div');
+			diffStyle: function (dom, targetClassName) {
 				var targetTestDiv = document.createElement('div');
-				
-				originTestDiv.style.display = 'none';
-				targetTestDiv.style.display = 'none';
-
-				originTestDiv.className = originClassName;
+				targetTestDiv.style.visibility = 'hidden';
 				targetTestDiv.className = targetClassName;
-
-				dom.parentNode.appendChild(originTestDiv);
 				dom.parentNode.appendChild(targetTestDiv);
 
-				var originStyles = Utility.getComputedStyle(originTestDiv);
+				var originStyles = Utility.getComputedStyle(dom);
 				var targetStyles = Utility.getComputedStyle(targetTestDiv);
 
 				var diff = function () {
 					var properties = [];
-					var needDiffStyles = ['width', 'height', 'padding', 'margin', 'lineHeight', 
-					'border-radius'];	
+					var needDiffStyles = ['width', 'height', 'padding', 'margin', 
+					'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
+					'left', 'right', 'top', 'bottom', 'border-radius', 'background-color', 
+					'color', 'border-color', 'opacity', 'transform'];
 					
 					for (var i = 0; i < needDiffStyles.length; i++) {
+						if ((needDiffStyles[i] === 'left' ||
+							needDiffStyles[i] === 'right' || 
+							needDiffStyles[i] === 'top' || 
+							needDiffStyles[i] === 'bottom') && originStyles[needDiffStyles[i]] === 'auto') {
+							continue;
+						}
 						if (originStyles[needDiffStyles[i]] !== targetStyles[needDiffStyles[i]]) {
 							properties.push(needDiffStyles[i]);
 						}
 					}
-					originTestDiv.remove();
-					targetTestDiv.remove();
 
+					targetTestDiv.remove();
 					return properties;
 				};
 
@@ -224,72 +224,106 @@
 		if (this._status === 'start') {
 			return;
 		}
-		this._status = 'start';
 		var self = this;
-		var eventType = eventPrefix ? eventPrefix + Utility.firstUppercase('transitionEnd') : 'transitionend';		
-
-		var throughPhase = function () {
+		this._status = 'start';
+		var start = function () {
 			var phase = self._phaseList[self._phaseIndex];
-			if (phase && phase.status === 'unstart') {
-				if (phase.diffClassName) {
-					var originClassName = this._dom.className;
-					if (originClassName.match('\\b' + className + '\\b')) {
-						return;
-					}
-					var targetClassName = originClassName + ' ' + className; 
-					var properties = Utility.diffStyle(this._dom, originClassName, targetClassName);
-					phase.transition = Utility.getTransition(properties, options);
-				}
-
-				Utility.invokeIfExists(phase.onStart);
-				Utility.relayout(self._dom);
-				Utility.css(self._dom, phase.transition);
-				if (phase.style) {
-					Utility.css(self._dom, phase.styles);
-				} else if (phase.targetClassName) {
-					self._dom.className = phase.targetClassName;
-				}
-				phase.status = 'start';
-				if (phase.transition.transitionDuration === '0ms')	 {
-					setTimeout(function () {
-						onPhaseEnd();
-					}, 0);
-				}
-			}
-		};
-
-		var onPhaseEnd =  function () {
-			var phase = self._phaseList[self._phaseIndex];
-			if (phase.status === 'stop') {
+			self._phaseIndex += 1;
+			if (!phase || phase.status !== 'unstart') {
 				return;
 			}
 
-			phase.status = 'stop';	
-			Utility.css(self._dom, 'transition', '');
-			Utility.invokeIfExists(phase.onStop);
-
-			setTimeout(function () {
-				self._phaseIndex += 1;
-				if (self._phaseIndex >= self._phaseList.length) {
-					Utility.removeEvent(self._dom, eventType, onPhaseEnd);
-					self._status = 'stop';
+			if (phase.diffClassName) {
+				var originClassName = self._dom.className;
+				var targetClassName = originClassName; 
+				var classNames = phase.diffClassName.split(' ');
+				if (classNames[0] === '-') {
+					for (var i = 1; i < classNames.length; i++) {
+						if (originClassName.match('\\b' + classNames[i] + '\\b')) {
+							targetClassName = targetClassName.replace(classNames[i], '');
+						}		
+					}
+				} else if (classNames[0] === '+') {
+					for (var i = 1; i < classNames.length; i++) {
+						if (!originClassName.match('\\b' + classNames[i] + '\\b')) {
+							targetClassName += ' ' + classNames[i];
+						}		
+					}
+				} 
+				if (targetClassName === originClassName) {
+					setTimeout(function () {
+						start();
+					}, 0);
 					return;
 				}
-				throughPhase();
+
+				var properties = Utility.diffStyle(self._dom, targetClassName);
+				phase.transition = Utility.getTransition(properties, phase.options);
+				phase.targetClassName = targetClassName;
+			}
+
+			self._step(phase, function () {
+				Utility.invokeIfExists(phase.onStart);
+			}, function () {
+				Utility.invokeIfExists(phase.onStop);
+				start();
+			});
+		};
+		start();
+	};
+
+	_Simplean.prototype._step = function (phase, onStart, onStop) {
+		var self = this;
+		var eventType = eventPrefix ? eventPrefix + Utility.firstUppercase('transitionEnd') : 'transitionend';	
+
+		var throughPhase = function () {
+			phase.status = 'start';
+			Utility.invokeIfExists(onStart);
+
+			Utility.addEvent(self._dom, eventType, onPhaseEnd);
+
+			Utility.relayout(self._dom);
+			if (phase.transition.transitionProperty) {
+				Utility.css(self._dom, phase.transition);
+			}
+			if (phase.style) {
+				Utility.css(self._dom, phase.styles);
+			} else if (phase.targetClassName) {
+				self._dom.className = phase.targetClassName;
+			}
+			Utility.relayout(self._dom);
+
+			if (phase.transition.transitionDuration === '0ms' || 
+				!phase.transition.transitionProperty)	 {
+				setTimeout(function () {
+					onPhaseEnd();
+				}, 0);
+			}
+		};
+		var onPhaseEnd = function () {
+			if (phase.status === 'stop') {
+				return;
+			}
+			phase.status = 'stop';	
+
+			Utility.css(self._dom, 'transition', '');
+			Utility.removeEvent(self._dom, eventType, onPhaseEnd);
+			setTimeout(function () {
+				Utility.invokeIfExists(onStop);	
 			}, 0);
 		};
-
 		throughPhase();
-		Utility.addEvent(self._dom, eventType, onPhaseEnd);
 	};
+
 	_Simplean.prototype._setClass = function (diffClassName, options) {
-		if (!className) {
+		if (!diffClassName) {
 			return;
 		}
 		options = options || {};
 
 		this._phaseList.push({
 			diffClassName: diffClassName,
+			options: options,
 			onStart: options.onStart, 
 			onStop: options.onStop,
 			status: 'unstart'
@@ -315,6 +349,7 @@
 		self._phaseList.push({
 			styles: styles,
 			transition: Utility.getTransition(Utility.keys(styles), options),
+			options: options,
 			onStart: options.onStart, 
 			onStop: options.onStop,
 			status: 'unstart'

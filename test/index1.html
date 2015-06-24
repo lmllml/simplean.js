@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title></title>
 	<style type="text/css">
 		div {
@@ -8,41 +9,43 @@
 			width: 100px;
 			background: black;
 		}
+
 		.width-200 {
 			width: 200px;
 			height: 200px;
 		}
+
 		.backgroundColor-red {
 			background: red;
+		}
+		.font-blue {
+			color: blue;
+		}
+		.border-gray {
+			border: 10px solid gray;
+			height: 200px;
+		}
+		.top-100 {
+			top: 100px;
+		}
+		.hide {
+			opacity: 0;
+		}
+		.rotate-30 {
+			transform: rotate(30deg);
+		}
+		.skew-30 {
+			transform: skew(30deg);
 		}
 	</style>
 </head>
 <body>
-<div class="div1"></div>
-<div class="div2"></div>
+<div></div>
+<div class="div1">呵呵</div>
 <script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
 window.onload = function () {
-	Simplean('div').to({
-		width: "200px",
-		height: "300px",
-		'border-radius': "50px"
-	}, {
-		duration: 1000
-	}).to({
-		width: "100px",
-	}, {
-		delay: 1000,
-		duration: 1000
-	}).to({
-		background: 'red'	
-	}).to({
-		height: '100px'
-	}, {
-		duration: 300
-	});
-
-	Simplean('.div2').addClass('width-200').removeClass('width-200').addClass('backgroundColor-red');
+	Simplean('.div1').addClass('width-200').removeClass('width-200').addClass('backgroundColor-red').addClass('font-blue').addClass('border-gray').addClass('hide').removeClass('hide').addClass('rotate-30').addClass('skew-30');
 
 };
 </script>
