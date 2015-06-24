@@ -3,15 +3,7 @@
   * focus on mobile browser and advanced browser
   * simple api
 ## Usage
-````html
-<html>
-<head>
-</head>
-<body>
-</body>
-</html>
 ````
-````javascript
 
 ````
 ## API
