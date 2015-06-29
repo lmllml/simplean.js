@@ -102,8 +102,11 @@
 	<script type="text/javascript" src="../simplean.js"></script>
 	<script type="text/javascript">
 	 window.onload = function () {
+	 	var getDom = function (selector) {
+	 		return document.querySelector(selector);
+	 	}
 	 	window.animateWidth = function () {
-			Simplean('.width').to({
+			Simplean(getDom('.width')).to({
 		 		width: '200px'
 		 	}, {
 		 		duration: 1000
@@ -114,7 +117,7 @@
 		 	});
 	 	};
 	 	window.animateHeight = function () {
-			Simplean('.height').to({
+			Simplean(getDom('.height')).to({
 		 		height: '200px'
 		 	}, {
 		 		duration: 1000
@@ -125,7 +128,7 @@
 		 	});
 	 	};
 	 	window.animateBackground = function () {
-			Simplean('.background').to({
+			Simplean(getDom('.background')).to({
 		 		background: 'blue',
 		 	}, {
 		 		duration: 1000
@@ -136,7 +139,7 @@
 		 	});
 	 	};
 	 	window.animateMargin = function () {
-			Simplean('.margin').to({
+			Simplean(getDom('.margin')).to({
 		 		margin: '50px',
 		 	}, {
 		 		duration: 1000
@@ -147,7 +150,7 @@
 		 	});
 	 	};
 	 	window.animatePadding = function () {
-			Simplean('.padding').to({
+			Simplean(getDom('.padding')).to({
 		 		padding: '50px',
 		 	}, {
 		 		duration: 1000
@@ -158,7 +161,7 @@
 		 	});
 	 	};
 	 	window.animateOpacity = function () {
-			Simplean('.opacity').to({
+			Simplean(getDom('.opacity')).to({
 		 		opacity: 0,
 		 	}, {
 		 		duration: 1000
@@ -169,7 +172,7 @@
 		 	});
 	 	};
 	 	window.animateBorderRadius = function () {
-			Simplean('.border-radius').to({
+			Simplean(getDom('.border-radius')).to({
 		 		'border-radius': '50px',
 		 	}, {
 		 		duration: 1000
@@ -180,7 +183,7 @@
 		 	});
 	 	};
 	 	window.animateFontSize = function () {
-			Simplean('.font-size').to({
+			Simplean(getDom('.font-size')).to({
 		 		'font-size': '50px',
 		 	}, {
 		 		duration: 1000
@@ -191,7 +194,7 @@
 		 	});
 	 	};
 	 	window.animateColor = function () {
-			Simplean('.color').to({
+			Simplean(getDom('.color')).to({
 		 		'color': 'orange',
 		 	}, {
 		 		duration: 1000
@@ -202,7 +205,7 @@
 		 	});
 	 	};
 	 	window.animateWordSpacing = function () {
-			Simplean('.word-spacing').to({
+			Simplean(getDom('.word-spacing')).to({
 		 		'word-spacing': '30px',
 		 	}, {
 		 		duration: 1000
@@ -213,7 +216,7 @@
 		 	});
 	 	};
 	 	window.animateBorderWidth = function () {
-			Simplean('.border-width').to({
+			Simplean(getDom('.border-width')).to({
 		 		'border-width': '10px',
 		 	}, {
 		 		duration: 1000
@@ -224,7 +227,7 @@
 		 	});
 	 	};
 	 	window.animateBorderColor = function () {
-			Simplean('.border-color').to({
+			Simplean(getDom('.border-color')).to({
 		 		'border-color': 'yellow',
 		 	}, {
 		 		duration: 1000
@@ -235,7 +238,7 @@
 		 	});
 	 	};
 	 	window.animateTranslate = function () {
-	 		Simplean('.translate').to({
+	 		Simplean(getDom('.translate')).to({
 	 			'transform': 'translate(-300%, -300%)'
 	 		}, {
 				duration: 1000
@@ -250,7 +253,7 @@
 	 		});
 	 	};
 	 	window.animateRotate = function () {
-	 		Simplean('.rotate').to({
+	 		Simplean(getDom('.rotate')).to({
 	 			'transform': 'rotate(360deg)'
 	 		}, {
 				duration: 1000
@@ -261,7 +264,7 @@
 	 		});
 	 	};
 	 	window.animateSkew = function () {
-	 		Simplean('.skew').to({
+	 		Simplean(getDom('.skew')).to({
 	 			'transform': 'skew(360deg)'
 	 		}, {
 				duration: 1000
@@ -272,7 +275,7 @@
 	 		});
 	 	};
 	 	window.animateSkew = function () {
-	 		Simplean('.skew').to({
+	 		Simplean(getDom('.skew')).to({
 	 			'transform': 'skew(360deg)'
 	 		}, {
 				duration: 1000
@@ -283,7 +286,7 @@
 	 		});
 	 	};
 	 	window.animateScale = function () {
-	 		Simplean('.scale').to({
+	 		Simplean(getDom('.scale')).to({
 	 			'transform': 'scale(5)'
 	 		}, {
 				duration: 1000
@@ -292,7 +295,7 @@
 	 		}, {
 	 			duration: 1000
 	 		});	
-	 	}
+	 	};
 	 };
 	</script>
 </body>

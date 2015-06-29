@@ -192,6 +192,9 @@
     });
 
 	var Simplean = function (dom) {
+		if (!dom instanceof HTMLElement) {
+			return;
+		}
 		var simplean = simpleanMap.get(dom);
 		if (simplean) {
 			return simplean;
@@ -280,7 +283,7 @@
 			if (phase.transition.transitionProperty) {
 				Utility.css(self._dom, phase.transition);
 			}
-			if (phase.style) {
+			if (phase.styles) {
 				Utility.css(self._dom, phase.styles);
 			} else if (phase.targetClassName) {
 				self._dom.className = phase.targetClassName;

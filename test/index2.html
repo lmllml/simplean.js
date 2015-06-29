@@ -22,8 +22,11 @@
 <div class="page hide"></div>
 <script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
+var getDom = function (selector) {
+	return document.querySelector(selector);
+};
 window.onload = function () {
-	Simplean('.page').to({
+	Simplean(getDom('.page')).to({
 		width: '200px',
 		height: '200px',
 		transform: 'translate(200px, 200px)'
