@@ -149,11 +149,12 @@
 				if (options.duration !== 0) {
 					duration = options.duration || '300ms';
 				}
+				
 				var ease = options.ease || 'linear';
-				if (delay.toString().indexOf('ms') < 0) {
+				if (typeof delay === 'number') {
 					delay = delay + 'ms';
 				}
-				if (duration.toString().indexOf('ms') < 0) {
+				if (typeof duration === 'number') {
 					duration = duration + 'ms';
 				}
 
@@ -190,16 +191,7 @@
         }
     });
 
-	var Simplean = function (selector) {
-		var dom;
-		if (typeof selector === 'string') {
-			dom = document.querySelector(selector);
-		} else if (typeof selector === 'object') {
-			dom = selector;
-		} else {
-			throw new Error('selector is uncorrect');
-		}
-
+	var Simplean = function (dom) {
 		var simplean = simpleanMap.get(dom);
 		if (simplean) {
 			return simplean;
@@ -236,18 +228,20 @@
 			if (phase.diffClassName) {
 				var originClassName = self._dom.className;
 				var targetClassName = originClassName; 
+
 				var classNames = phase.diffClassName.split(' ');
+				
 				if (classNames[0] === '-') {
 					for (var i = 1; i < classNames.length; i++) {
-						if (originClassName.match('\\b' + classNames[i] + '\\b')) {
+						if (self._dom.classList.contains(classNames[i])) {
 							targetClassName = targetClassName.replace(classNames[i], '');
 						}		
 					}
 				} else if (classNames[0] === '+') {
 					for (var i = 1; i < classNames.length; i++) {
-						if (!originClassName.match('\\b' + classNames[i] + '\\b')) {
+						if (!self._dom.classList.contains(classNames[i])) {
 							targetClassName += ' ' + classNames[i];
-						}		
+						}
 					}
 				} 
 				if (targetClassName === originClassName) {
