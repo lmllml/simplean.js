@@ -7,7 +7,7 @@
 		div {
 			height: 100px;
 			width: 100px;
-			background: black;
+			background-color: black;
 		}
 
 		.width-200 {
@@ -18,12 +18,13 @@
 		.backgroundColor-red {
 			background: red;
 		}
+
 		.font-blue {
 			color: blue;
 		}
 		.border-gray {
-			border: 10px solid gray;
-			height: 200px;
+			border-bottom: 10px solid gray;
+			//height: 200px;
 		}
 		.top-100 {
 			top: 100px;
@@ -34,8 +35,20 @@
 		.rotate-30 {
 			transform: rotate(30deg);
 		}
-		.skew-30 {
-			transform: skew(30deg);
+		.skew-350 {
+			transform: skew(350deg);
+		}
+		.background-white {
+			background: white;
+		}
+		.text-shadow {
+			text-shadow: 5px 5px 1px blue;
+		}
+		.box-shadow {
+			box-shadow: 5px 5px 5px red;
+		}
+		.linear-gradient {
+			background: url(http://www.w3school.com.cn/i/bg_flower.gif) no-repeat 30px 30px;	
 		}
 	</style>
 </head>
@@ -44,8 +57,11 @@
 <div class="div1">呵呵</div>
 <script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
+var getDom = function (selector) {
+	return document.querySelector(selector);
+};
 window.onload = function () {
-	Simplean('.div1').addClass('width-200').removeClass('width-200').addClass('backgroundColor-red').addClass('font-blue').addClass('border-gray').addClass('hide').removeClass('hide').addClass('rotate-30').addClass('skew-30');
+	Simplean(getDom('.div1')).addClass('width-200').removeClass('width-200').addClass('backgroundColor-red').addClass('font-blue').addClass('border-gray').addClass('hide').removeClass('hide').addClass('rotate-30').addClass('skew-350').addClass('background-white').addClass('text-shadow').addClass('box-shadow').addClass('linear-gradient');
 
 };
 </script>

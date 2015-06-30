@@ -109,21 +109,25 @@
 			removeEvent: function (dom, eventType, listener, capture) {
 				dom.removeEventListener(eventType, listener, capture);
 			},
+			// need be attention to background-size, max-height, vertical-align
 			diffStyle: function (dom, targetClassName) {
-				var targetTestDiv = document.createElement('div');
-				targetTestDiv.style.visibility = 'hidden';
-				targetTestDiv.className = targetClassName;
-				dom.parentNode.appendChild(targetTestDiv);
+				var targetTestElem = document.createElement(dom.tagName);
+				targetTestElem.style.visibility = 'hidden';
+				targetTestElem.className = targetClassName;
+				dom.parentNode.appendChild(targetTestElem);
 
 				var originStyles = Utility.getComputedStyle(dom);
-				var targetStyles = Utility.getComputedStyle(targetTestDiv);
+				var targetStyles = Utility.getComputedStyle(targetTestElem);
 
 				var diff = function () {
 					var properties = [];
 					var needDiffStyles = ['width', 'height', 'padding', 'margin', 
 					'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
 					'left', 'right', 'top', 'bottom', 'border-radius', 'background-color', 
-					'color', 'border-color', 'opacity', 'transform'];
+					'color', 'border-color', 'opacity', 'transform', 'text-shadow', 'box-shadow', 
+					'background-size', 'background-position', 'border-spacing', 'clip', 
+					'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
+					'text-indent', 'vertical-align', 'z-index'];
 					
 					for (var i = 0; i < needDiffStyles.length; i++) {
 						if ((needDiffStyles[i] === 'left' ||
@@ -132,12 +136,13 @@
 							needDiffStyles[i] === 'bottom') && originStyles[needDiffStyles[i]] === 'auto') {
 							continue;
 						}
+
 						if (originStyles[needDiffStyles[i]] !== targetStyles[needDiffStyles[i]]) {
 							properties.push(needDiffStyles[i]);
 						}
 					}
 
-					targetTestDiv.remove();
+					targetTestElem.remove();
 					return properties;
 				};
 
@@ -172,7 +177,7 @@
 			},
 			relayout: function (dom) {
 				Utility.getComputedStyle(dom).width;
-			},
+			}
 		};
 	})();
 
@@ -193,7 +198,7 @@
 
 	var Simplean = function (dom) {
 		if (!dom instanceof HTMLElement) {
-			return;
+			throw new Error('Simplean must initialize by dom');
 		}
 		var simplean = simpleanMap.get(dom);
 		if (simplean) {
