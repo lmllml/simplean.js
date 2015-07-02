@@ -57,7 +57,7 @@
                 });
                 return keys;
             },
-            
+
             css: function (dom, styles, value) {
                 var wrapProperty = function (property) {
                     var needCompatible = [
@@ -229,10 +229,11 @@
         this._status = 'start';
         var start = function () {
             var phase = self._phaseList[self._phaseIndex];
-            self._phaseIndex += 1;
             if (!phase || phase.status !== 'unstart') {
+                self._status ='stop';
                 return;
             }
+            self._phaseIndex += 1;
 
             if (phase.diffClassName) {
                 var originClassName = self._dom.className;
