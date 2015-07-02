@@ -1,7 +1,7 @@
 #Simplean.js
-  * focus on dom animation 
-  * focus on mobile browser and advanced browser
-  * simple api: to, addClass, removeClass
+  * Focus on dom animation 
+  * Focus on mobile browser and advanced browser
+  * Simple api: to, addClass, removeClass
 
 ## Usage
 ````
