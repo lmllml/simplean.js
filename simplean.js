@@ -111,16 +111,10 @@
                 dom.removeEventListener(eventType, listener, capture);
             },
             // need be attention to background-size, max-height, vertical-align
-            diffStyle: function (dom, targetClassName) {
-                var targetTestElem = document.createElement(dom.tagName);
-                targetTestElem.style.visibility = 'hidden';
-                targetTestElem.className = targetClassName;
-                dom.parentNode.appendChild(targetTestElem);
-
-                var originStyles = Utility.getComputedStyle(dom);
-                var targetStyles = Utility.getComputedStyle(targetTestElem);
-
-                var diff = function () {
+            diffStyle: function (dom, targetClassName, deep) {
+                 var diff = function (originDom, targetDom) {
+                    var originStyles = Utility.getComputedStyle(originDom);
+                    var targetStyles = Utility.getComputedStyle(targetDom); 
                     var properties = [];
                     var needDiffStyles = ['width', 'height', 'padding', 'margin', 
                     'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
@@ -147,7 +141,42 @@
                     return properties;
                 };
 
-                return diff();
+                var targetTestElem = deep ? dom.cloneNode(true): document.createElement(dom.tagName);
+                targetTestElem.style.visibility = 'hidden';
+                targetTestElem.className = targetClassName;
+                dom.parentNode.appendChild(targetTestElem);
+                
+                var diffResult = [];
+                if (deep) {
+                    var stack = [{
+                        node: dom,
+                        targetNode: targetTestElem 
+                    }];
+                    while (stack.length) {
+                        var item = stack.pop();
+                        diffResult.push({
+                            elem: item.node,
+                            properties: diff(item.node, item.targetNode)
+                        });
+
+                        var nodeChildren = item.node.children;
+                        var targetNodeChildren = item.targetNode.children;
+
+                        for (var i = 0; i < nodeChildren.length; i++) {
+                            stack.push({
+                                node: nodeChildren[i],
+                                targetNode: targetNodeChildren[i]
+                            }); 
+                        }
+                        
+                    }
+                } else {
+                    diffResult.push({
+                        elem: dom,
+                        properties: diff(dom, targetTestElem)
+                    });
+                }
+                return diffResult;
             },
             getTransition: function (properties, options) {
                 var delay = options.delay || '0ms';
@@ -261,8 +290,13 @@
                     return;
                 }
 
-                var properties = Utility.diffStyle(self._dom, targetClassName);
-                phase.transition = Utility.getTransition(properties, phase.options);
+                var diffResult = Utility.diffStyle(self._dom, targetClassName, phase.options.deep);
+                phase.transitionList = diffResult.map(function (result) {
+                    return {
+                        elem: result.elem,
+                        transition: Utility.getTransition(result.properties, phase.options)
+                    };
+                });
                 phase.targetClassName = targetClassName;
             }
 
@@ -287,9 +321,14 @@
             Utility.addEvent(self._dom, eventType, onPhaseEnd);
 
             Utility.relayout(self._dom);
-            if (phase.transition.transitionProperty) {
-                Utility.css(self._dom, phase.transition);
-            }
+
+            Utility.each(phase.transitionList, function (item) {
+                if (item.transition.transitionProperty) {
+                    Utility.css(item.elem, item.transition);
+                }   
+            });
+
+            
             if (phase.styles) {
                 Utility.css(self._dom, phase.styles);
             } else if (phase.targetClassName) {
@@ -297,11 +336,16 @@
             }
             Utility.relayout(self._dom);
 
-            if (phase.transition.transitionDuration === '0ms' || 
-                !phase.transition.transitionProperty)    {
+            if (phase.transitionList[0].transition.transitionDuration === '0ms') {
                 setTimeout(function () {
                     onPhaseEnd();
                 }, 0);
+            } else {
+                setTimeout(function () {
+                    if (phase.status !== 'stop') {
+                        onPhaseEnd();
+                    }
+                }, phase.transitionList[0].transition.transitionDuration.replace('ms', ''));
             }
         };
         var onPhaseEnd = function () {
@@ -310,7 +354,12 @@
             }
             phase.status = 'stop';  
 
-            Utility.css(self._dom, 'transition', '');
+            Utility.each(phase.transitionList, function (item) {
+                if (item.transition.transitionProperty) {
+                    Utility.css(item.elem, 'transition', '');
+                }   
+            });
+
             Utility.removeEvent(self._dom, eventType, onPhaseEnd);
             setTimeout(function () {
                 Utility.invokeIfExists(onStop); 
@@ -352,7 +401,10 @@
 
         self._phaseList.push({
             styles: styles,
-            transition: Utility.getTransition(Utility.keys(styles), options),
+            transitionList: [{
+                elem: self._dom,
+                transition: Utility.getTransition(Utility.keys(styles), options)
+            }],
             options: options,
             onStart: options.onStart, 
             onStop: options.onStop,
