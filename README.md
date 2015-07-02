@@ -70,14 +70,9 @@
 ## OPTIONS
 
  All api in Simplean.js has a argument that is options which make the process of animation controable. Options is a object has five property: delay, duration, ease, onStart, onStop. 
- * delay
- Delay means animation wait some time for starting.The default value is 0ms.
- * duration
- Duration means animation running time.The default value is 300ms.
- * ease
- Ease means animation timing function.In simple term, timing function is a function that caculate the instant status  as time passing.The default is linear.
- * onStart
- The function invoked before animation starting.
- * onStop
- The function invoked after animation stopping.
+ * `delay` - Delay means animation wait some time for starting.The default value is 0ms.
+ * `duration` - Duration means animation running time.The default value is 300ms.
+ * `ease` - Ease means animation timing function.In simple term, timing function is a function that caculate the instant status as time passing.The default is linear.
+ * `onStart` - The function invoked before animation starting.
+ * `onStop` - The function invoked after animation stopping.
  
