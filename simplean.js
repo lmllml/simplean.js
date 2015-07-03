@@ -1,15 +1,25 @@
 ;(function () {
+    /**
+    * Map
+    * CLASS
+    **/
     var Map = function () {
         this.keys = [];
         this.values = [];
     };  
 
+    /**
+    * Map.set
+    **/
     Map.prototype.set = function (key, value) {
         this.keys.push(key);
         this.values.push(value);
         return value;
     };
 
+    /**
+    * Map.get
+    **/
     Map.prototype.get = function (key) {
         var index = -1;
         for (var i = 0; i < this.keys.length; i++) {
@@ -23,6 +33,9 @@
         }
     };
 
+    /**
+    * Map.remove
+    **/
     Map.prototype.remove = function (key) {
         var index = -1;
         for (var i = 0; i < this.keys.length; i++) {
@@ -257,6 +270,7 @@
         var self = this;
         this._status = 'start';
         var start = function () {
+            // get phase
             var phase = self._phaseList[self._phaseIndex];
             if (!phase || phase.status !== 'unstart') {
                 self._status ='stop';
@@ -264,6 +278,9 @@
             }
             self._phaseIndex += 1;
 
+            /** 
+            * calculate transitionList. If phase.diffClassName is a string, calculate dom target class also.
+            */
             if (phase.diffClassName) {
                 var originClassName = self._dom.className;
                 var targetClassName = originClassName; 
@@ -298,8 +315,11 @@
                     };
                 });
                 phase.targetClassName = targetClassName;
+            } else {
+
             }
 
+            // start one animation
             self._step(phase, function () {
                 Utility.invokeIfExists(phase.onStart);
             }, function () {
@@ -328,7 +348,6 @@
                 }   
             });
 
-            
             if (phase.styles) {
                 Utility.css(self._dom, phase.styles);
             } else if (phase.targetClassName) {
