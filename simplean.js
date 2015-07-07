@@ -279,13 +279,15 @@
         testEl = document.createElement('div'),
         simpleanMap = new Map();
 
-    Utility.each(vendors, function(vendor, event) {
-        if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
-          cssPrefix = '-' + vendor.toLowerCase() + '-';
-          eventPrefix = event;
-          return false;
-        }
-    });
+    if (testEl.style['transitionProperty'] === undefined) {
+        Utility.each(vendors, function(vendor, event) {
+            if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
+              cssPrefix = '-' + vendor.toLowerCase() + '-';
+              eventPrefix = event;
+              return false;
+            }
+        });
+    }
 
     var Simplean = function (dom) {
         if (!dom instanceof HTMLElement) {
