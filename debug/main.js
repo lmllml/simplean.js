@@ -1,4 +1,3 @@
 window.onload = function () {
-	var div = document.createElement('div');
-	div.className = 'class1';
+    document.querySelector('div').className = 'bigger';
 };

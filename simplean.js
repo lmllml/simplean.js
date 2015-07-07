@@ -71,32 +71,7 @@
                 return keys;
             },
 
-            css: function (dom, styles, value) {
-                var wrapProperty = function (property) {
-                    var needCompatible = [
-                        'transitionDelay', 
-                        'transitionProperty', 
-                        'transitionDuration', 
-                        'transitionTimingFunction',
-                        'transform'
-                    ];
-                    if (needCompatible.indexOf(property) > -1 && eventPrefix) {
-                        property = eventPrefix + Utility.firstUppercase(property);
-                    }
-                    return property;
-                };
-
-                if (typeof styles === 'object') {
-                    Utility.each(styles, function (property, value) {
-                        dom.style[wrapProperty(property)] = value;
-                    });
-                } else if (typeof styles === 'string') {
-                    if (value !== undefined) {  
-                        dom.style[wrapProperty(styles)] = value;        
-                    }
-                    return dom.style[wrapProperty(styles)];
-                }
-            },
+           
             extend: function (obj) {
                 var toExtendObjs = [];
                 for (var i = 1; i < arguments.length; i ++) {
@@ -123,37 +98,99 @@
             removeEvent: function (dom, eventType, listener, capture) {
                 dom.removeEventListener(eventType, listener, capture);
             },
-            // need be attention to background-size, max-height, vertical-align
-            diffStyle: function (dom, targetClassName, deep) {
-                 var diff = function (originDom, targetDom) {
-                    var originStyles = Utility.getComputedStyle(originDom);
-                    var targetStyles = Utility.getComputedStyle(targetDom); 
-                    var properties = [];
-                    var needDiffStyles = ['width', 'height', 'padding', 'margin', 
-                    'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
-                    'left', 'right', 'top', 'bottom', 'border-radius', 'background-color', 
-                    'color', 'border-color', 'opacity', 'transform', 'text-shadow', 'box-shadow', 
-                    'background-size', 'background-position', 'border-spacing', 'clip', 
-                    'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
-                    'text-indent', 'vertical-align', 'z-index'];
-                    
-                    for (var i = 0; i < needDiffStyles.length; i++) {
-                        if ((needDiffStyles[i] === 'left' ||
-                            needDiffStyles[i] === 'right' || 
-                            needDiffStyles[i] === 'top' || 
-                            needDiffStyles[i] === 'bottom') && originStyles[needDiffStyles[i]] === 'auto') {
-                            continue;
-                        }
 
-                        if (originStyles[needDiffStyles[i]] !== targetStyles[needDiffStyles[i]]) {
-                            properties.push(needDiffStyles[i]);
+            handleOptions: function (options) {
+                options = options || {};
+                options.delay = options.delay || '0ms';
+                if (options.duration !== 0) {
+                    options.duration = options.duration || '300ms';
+                }
+                options.ease = options.ease || 'linear';
+
+                if (typeof options.delay === 'number') {
+                    options.delay += 'ms';
+                }
+                if (typeof options.duration === 'number') {
+                    options.duration += 'ms';
+                }
+                return options;
+            },
+
+            wrapProperty: function (property) {
+                 var needCompatible = [
+                    'transition',
+                    'transitionDelay', 
+                    'transitionProperty', 
+                    'transitionDuration', 
+                    'transitionTimingFunction',
+                    'transform'
+                ];
+                if (needCompatible.indexOf(property) > -1 && eventPrefix) {
+                    property = eventPrefix + Utility.firstUppercase(property);
+                }
+                return property;
+            },
+
+            invokeIfExists: function (func, args, context) {
+                if (typeof func === 'function') {
+                    func.apply(context, args);
+                }
+            },
+            relayout: function (dom) {
+                Utility.getComputedStyle(dom).width;
+            }
+        };
+    })();
+
+    var DomUtility = (function () {
+        return {
+            diffStyle: function (originDom, targetStyles) {
+                var originStyles = Utility.getComputedStyle(originDom);
+                var originTransitionProperty = originDom.style.transitionProperty;
+
+                var properties = [];
+                var needInit = {};
+                var needDiffStyles = ['width', 'height', 'padding', 'margin', 
+                'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
+                'left', 'right', 'top', 'bottom', 'border-radius', 'background-color', 
+                'color', 'border-color', 'opacity', 'transform', 'text-shadow', 'box-shadow', 
+                'background-size', 'background-position', 'border-spacing', 'clip', 
+                'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
+                'text-indent', 'vertical-align', 'z-index'];
+                
+                for (var i = 0; i < needDiffStyles.length; i++) {
+                    var property = needDiffStyles[i];
+                    if (targetStyles[property] === undefined || originTransitionProperty.match('\\b' + property+ ',?\\b')) {
+                        continue;
+                    } 
+
+                    // if ((property === 'left' ||
+                    //     property === 'right' || 
+                    //     property === 'top' || 
+                    //     property === 'bottom') && originStyles[property] === 'auto') {
+                    //     continue;
+                    // }
+
+                    if (originStyles[property] !== targetStyles[property]) {
+                        properties.push(property);
+                        if ((property === 'height' || 
+                            property === 'width' )&& !originDom.style[property]) {
+                            needInit[property] = originStyles[property];
                         }
                     }
+                }
 
-                    targetTestElem.remove();
-                    return properties;
+                return {
+                    properties: properties,
+                    needInit: needInit
                 };
-
+            },
+            diffDom: function (originDom, targetDom) {
+                return this.diffStyle(originDom, Utility.getComputedStyle(targetDom));
+            },
+            // need be attention to background-size, max-height, vertical-align
+            diffClass: function (dom, targetClassName, deep) {
+                var self = this;
                 var targetTestElem = deep ? dom.cloneNode(true): document.createElement(dom.tagName);
                 targetTestElem.style.visibility = 'hidden';
                 targetTestElem.className = targetClassName;
@@ -167,9 +204,10 @@
                     }];
                     while (stack.length) {
                         var item = stack.pop();
+                        var result = self.diffDom(item.node, item.targetNode);
                         diffResult.push({
                             elem: item.node,
-                            properties: diff(item.node, item.targetNode)
+                            properties: result.properties
                         });
 
                         var nodeChildren = item.node.children;
@@ -184,42 +222,48 @@
                         
                     }
                 } else {
+                    var result = self.diffDom(dom, targetTestElem);
+
                     diffResult.push({
                         elem: dom,
-                        properties: diff(dom, targetTestElem)
+                        properties: result.properties,
+                        needInit: result.needInit 
                     });
                 }
+
+                targetTestElem.remove();
                 return diffResult;
             },
-            getTransition: function (properties, options) {
-                var delay = options.delay || '0ms';
-                var duration = 0;
-                if (options.duration !== 0) {
-                    duration = options.duration || '300ms';
+            css: function (dom, styles, value) {
+                if (typeof styles === 'object') {
+                    Utility.each(styles, function (property, value) {
+                        dom.style[Utility.wrapProperty(property)] = value;
+                    });
+                } else if (typeof styles === 'string') {
+                    if (value !== undefined) {  
+                        dom.style[Utility.wrapProperty(styles)] = value;        
+                    }
+                    return dom.style[Utility.wrapProperty(styles)];
                 }
-                
-                var ease = options.ease || 'linear';
-                if (typeof delay === 'number') {
-                    delay = delay + 'ms';
-                }
-                if (typeof duration === 'number') {
-                    duration = duration + 'ms';
-                }
+            },
+            addTransition: function (dom, properties, options) {
+                var transition = '';
+                Utility.each(properties, function (property) {
+                    transition += ', ' + property + ' ' + options.duration + ' ' + options.ease + ' ' + options.delay;    
+                });
 
-                return {
-                    transitionProperty: properties.join(','),
-                    transitionDelay: delay,
-                    transitionDuration: duration,
-                    transitionTimingFunction: ease
-                };
+                var currentTransition = dom.style[Utility.wrapProperty('transition')];
+                dom.style[Utility.wrapProperty('transition')] += currentTransition ? transition : transition.slice(2);
             },
-            invokeIfExists: function (func, args, context) {
-                if (typeof func === 'function') {
-                    func.apply(context, args);
-                }
-            },
-            relayout: function (dom) {
-                Utility.getComputedStyle(dom).width;
+
+            removeTrantion: function (dom, properties) {
+                var currentTransitionProperties = dom.style[Utility.wrapProperty('transitionProperty')];
+                Utility.each(properties, function (property) {
+                    if (currentTransitionProperties.match('\\b' + property + '\\b')) {
+                        currentTransitionProperties.replace(property, '');
+                    }
+                });
+                dom.style[Utility.wrapProperty('transitionProperty')] = currentTransitionProperties;
             }
         };
     })();
@@ -307,23 +351,30 @@
                     return;
                 }
 
-                var diffResult = Utility.diffStyle(self._dom, targetClassName, phase.options.deep);
+                var diffResult = DomUtility.diffClass(self._dom, targetClassName, phase.options.deep);
+                
                 phase.transitionList = diffResult.map(function (result) {
                     return {
                         elem: result.elem,
-                        transition: Utility.getTransition(result.properties, phase.options)
+                        properties: result.properties,
+                        needInit: result.needInit
                     };
                 });
                 phase.targetClassName = targetClassName;
             } else {
-
+                var diffResult = DomUtility.diffStyle(self._dom, phase.styles);
+                phase.transitionList = [{
+                    elem: self._dom,
+                    properties: diffResult.properties,
+                    needInit: diffResult.needInit
+                }];
             }
 
             // start one animation
             self._step(phase, function () {
-                Utility.invokeIfExists(phase.onStart);
+                Utility.invokeIfExists(phase.options.onStart, [self._dom], self);
             }, function () {
-                Utility.invokeIfExists(phase.onStop);
+                Utility.invokeIfExists(phase.options.onStop, [self._dom], self);
                 start();
             });
         };
@@ -340,22 +391,22 @@
 
             Utility.addEvent(self._dom, eventType, onPhaseEnd);
 
-            Utility.relayout(self._dom);
-
             Utility.each(phase.transitionList, function (item) {
-                if (item.transition.transitionProperty) {
-                    Utility.css(item.elem, item.transition);
+                if (item.properties.length) {
+                    DomUtility.css(item.elem, item.needInit);
+                    DomUtility.addTransition(item.elem, item.properties, phase.options);
                 }   
             });
+            Utility.relayout(self._dom);
 
             if (phase.styles) {
-                Utility.css(self._dom, phase.styles);
+                DomUtility.css(self._dom, phase.styles);
             } else if (phase.targetClassName) {
                 self._dom.className = phase.targetClassName;
             }
             Utility.relayout(self._dom);
 
-            if (phase.transitionList[0].transition.transitionDuration === '0ms') {
+            if (phase.options.duration === '0ms') {
                 setTimeout(function () {
                     onPhaseEnd();
                 }, 0);
@@ -364,7 +415,7 @@
                     if (phase.status !== 'stop') {
                         onPhaseEnd();
                     }
-                }, phase.transitionList[0].transition.transitionDuration.replace('ms', ''));
+                }, phase.options.duration.replace('ms', ''));
             }
         };
         var onPhaseEnd = function () {
@@ -374,9 +425,7 @@
             phase.status = 'stop';  
 
             Utility.each(phase.transitionList, function (item) {
-                if (item.transition.transitionProperty) {
-                    Utility.css(item.elem, 'transition', '');
-                }   
+                DomUtility.removeTrantion(item.elem, item.properties);
             });
 
             Utility.removeEvent(self._dom, eventType, onPhaseEnd);
@@ -391,13 +440,10 @@
         if (!diffClassName) {
             return;
         }
-        options = options || {};
 
         this._phaseList.push({
             diffClassName: diffClassName,
-            options: options,
-            onStart: options.onStart, 
-            onStop: options.onStop,
+            options: Utility.handleOptions(options),
             status: 'unstart'
         });
         this._start();
@@ -416,17 +462,10 @@
     _Simplean.prototype.to = function (styles, options) {
         var self = this;
         styles = styles || {};
-        options = options || {};
 
         self._phaseList.push({
             styles: styles,
-            transitionList: [{
-                elem: self._dom,
-                transition: Utility.getTransition(Utility.keys(styles), options)
-            }],
-            options: options,
-            onStart: options.onStart, 
-            onStop: options.onStop,
+            options: Utility.handleOptions(options),
             status: 'unstart'
         });
         self._start();
