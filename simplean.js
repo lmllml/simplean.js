@@ -257,13 +257,17 @@
             },
 
             removeTrantion: function (dom, properties) {
-                var currentTransitionProperties = dom.style[Utility.wrapProperty('transitionProperty')];
+                var currentProperties = dom.style[Utility.wrapProperty('transitionProperty')];
                 Utility.each(properties, function (property) {
-                    if (currentTransitionProperties.match('\\b' + property + '\\b')) {
-                        currentTransitionProperties.replace(property, '');
+                    if (currentProperties.match('\\b' + property + '\\b')) {
+                        currentProperties = currentProperties.replace(property, '');
                     }
                 });
-                dom.style[Utility.wrapProperty('transitionProperty')] = currentTransitionProperties;
+                if (currentProperties) {
+                    dom.style[Utility.wrapProperty('transitionProperty')] = currentProperties;
+                } else {
+                    dom.style[Utility.wrapProperty('transition')] = '';
+                }
             }
         };
     })();
