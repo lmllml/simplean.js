@@ -1,7 +1,6 @@
 ;(function () {
     /**
     * Map
-    * CLASS
     **/
     var Map = function () {
         this.keys = [];
@@ -50,6 +49,9 @@
         }   
     };
 
+    /**
+    *   
+    */
     var Utility = (function (){
         return {
             each: function (obj, iterator) {
@@ -144,17 +146,23 @@
 
     var DomUtility = (function () {
         return {
+            /**
+            * be attention to background-size, max-height 
+            * be attention to vertical-align is not number or percentage
+            * be attention to top, right, left and bottom is auto 
+            **/ 
             diffStyle: function (originDom, targetStyles) {
                 var originStyles = Utility.getComputedStyle(originDom);
                 var originTransitionProperty = originDom.style.transitionProperty;
 
                 var properties = [];
                 var needInit = {};
-                var needDiffStyles = ['width', 'height', 'padding', 'margin', 
-                'lineHeight', 'border-width', 'font-size','letter-space', 'word-space', 
-                'left', 'right', 'top', 'bottom', 'border-radius', 'background-color', 
-                'color', 'border-color', 'opacity', 'transform', 'text-shadow', 'box-shadow', 
-                'background-size', 'background-position', 'border-spacing', 'clip', 
+                var needDiffStyles = ['width', 'height', 'padding', 'padding-left', 
+                'padding-right', 'padding-top', 'padding-bottom', 'margin', 'margin-left', 
+                'margin-right', 'margin-top', 'margin-bottom','lineHeight', 'border-width', 
+                'font-size','letter-space', 'word-space', 'left', 'right', 'top', 'bottom', 
+                'border-radius', 'background-color', 'color', 'border-color', 'opacity', 'transform', 
+                'text-shadow', 'box-shadow', 'background-size', 'background-position', 'border-spacing', 'clip', 
                 'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
                 'text-indent', 'vertical-align', 'z-index'];
                 
@@ -163,13 +171,6 @@
                     if (targetStyles[property] === undefined || originTransitionProperty.match('\\b' + property+ ',?\\b')) {
                         continue;
                     } 
-
-                    // if ((property === 'left' ||
-                    //     property === 'right' || 
-                    //     property === 'top' || 
-                    //     property === 'bottom') && originStyles[property] === 'auto') {
-                    //     continue;
-                    // }
 
                     if (originStyles[property] !== targetStyles[property]) {
                         properties.push(property);
@@ -185,10 +186,15 @@
                     needInit: needInit
                 };
             },
+            /**
+            *  Get the difference about styles of two dom.
+            */
             diffDom: function (originDom, targetDom) {
                 return this.diffStyle(originDom, Utility.getComputedStyle(targetDom));
             },
-            // need be attention to background-size, max-height, vertical-align
+            /**
+            * Get the difference about style after a dom changing class.
+            */
             diffClass: function (dom, targetClassName, deep) {
                 var self = this;
                 var targetTestElem = deep ? dom.cloneNode(true): document.createElement(dom.tagName);
@@ -234,6 +240,7 @@
                 targetTestElem.remove();
                 return diffResult;
             },
+
             css: function (dom, styles, value) {
                 if (typeof styles === 'object') {
                     Utility.each(styles, function (property, value) {
@@ -246,28 +253,34 @@
                     return dom.style[Utility.wrapProperty(styles)];
                 }
             },
+
             addTransition: function (dom, properties, options) {
                 var transition = '';
+                var getValue = function (value, property, defaultValue) {
+                    if (typeof value === 'function') {
+                        return value(property) || defaultValue;
+                    } else {
+                        return value || defaultValue;
+                    }
+                };
+
                 Utility.each(properties, function (property) {
-                    transition += ', ' + property + ' ' + options.duration + ' ' + options.ease + ' ' + options.delay;    
+                    transition += ', ' + property + ' ' + 
+                                options.duration + ' ' + 
+                                getValue(options.ease, property, 'linear') + ' ' + 
+                                options.delay;    
                 });
 
                 var currentTransition = dom.style[Utility.wrapProperty('transition')];
                 dom.style[Utility.wrapProperty('transition')] += currentTransition ? transition : transition.slice(2);
             },
 
-            removeTrantion: function (dom, properties) {
-                var currentProperties = dom.style[Utility.wrapProperty('transitionProperty')];
+            removeTransition: function (dom, properties) {
+                var transition = dom.style[Utility.wrapProperty('transition')];
                 Utility.each(properties, function (property) {
-                    if (currentProperties.match('\\b' + property + '\\b')) {
-                        currentProperties = currentProperties.replace(property, '');
-                    }
+                    transition = transition.replace(new RegExp('\\b' + property + '.*?\\D(,|$)'), '');
                 });
-                if (currentProperties) {
-                    dom.style[Utility.wrapProperty('transitionProperty')] = currentProperties;
-                } else {
-                    dom.style[Utility.wrapProperty('transition')] = '';
-                }
+                dom.style[Utility.wrapProperty('transition')] = transition.trim(' ');
             }
         };
     })();
@@ -291,12 +304,12 @@
 
     var Simplean = function (dom) {
         if (!dom instanceof HTMLElement) {
-            throw new Error('Simplean must initialize by dom');
+            throw new Error('Simplean must init by dom');
         }
         var simplean = simpleanMap.get(dom);
         if (simplean) {
             return simplean;
-        } else {
+        } else {    
             return simpleanMap.set(dom, new _Simplean(dom));
         }
 
@@ -431,7 +444,7 @@
             phase.status = 'stop';  
 
             Utility.each(phase.transitionList, function (item) {
-                DomUtility.removeTrantion(item.elem, item.properties);
+                DomUtility.removeTransition(item.elem, item.properties);
             });
 
             Utility.removeEvent(self._dom, eventType, onPhaseEnd);
