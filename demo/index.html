@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        div {
+            position: absolute;
+            left: 300px;
+            top: 300px;
+            width: 40px;
+            height: 80px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="../simplean.js"></script>
+<script type="text/javascript">
+    var disperse = function (onStop) {
+        var RADIUS = Math.random() * 200 + 100;
+        var ANGLE = Math.random() * 45 + 0;
+        var count = parseInt(360 / ANGLE);
+        var elems = [];
+        for(var i = 0; i < count; i ++) {
+            elems.push(document.createElement('div'));
+        }
+
+        var step = function (index) {
+            if (index >= count) {
+                if (typeof onStop === 'function') {
+                    onStop(elems);
+                }
+                return;
+            }
+            document.body.appendChild(elems[index]);
+            var color = parseInt(255 / index);
+            var x = -RADIUS * Math.sin(2 * Math.PI * index * ANGLE / 360);
+            var y = -RADIUS * Math.cos(2 * Math.PI * index * ANGLE / 360);
+            Simplean(elems[index]).to({
+                transform: 'translate(' + x +'px, ' + y + 'px) rotate(' + index * ANGLE + 'deg)',
+                background: 'rgb(' + color + ', ' + color + ', ' + color + ')'
+            }, {
+                onStop: function () {
+                    step(index + 1);
+                }
+            });
+        };
+
+        step(0);
+        return elems;
+    };
+
+    var collapse = function (elems, onStop) {
+        var step = function (index) {
+            if (index >= elems.length) {
+                if (typeof onStop === 'function') {
+                    onStop();
+                }
+                return;
+            }
+            Simplean(elems[index]).to({
+                transform: 'translate(0) rotate(0)',
+                background: 'white'
+            }, {
+                onStop: function () {
+                    elems[index].remove();
+                    step(index + 1);
+                }
+            });
+        };
+        step(0);
+    };
+    window.onload = function () {
+        var animate = function () {
+            disperse(function (elems) {
+                collapse(elems, animate);
+            });
+        };
+        animate();
+    };
+</script>
+</body>
+</html>
