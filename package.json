@@ -1,9 +1,0 @@
-{
-    "name": "simplean.js",
-    "version": "0.0.4",
-    "description": "A tool for simply creating dom animation.",
-    "author": {
-        "name": "liyanda",
-        "email": "liyanda@meituan.com"
-    }
-}
