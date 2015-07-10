@@ -1,4 +1,6 @@
 #Simplean.js
+[中文](README.zh-cn.md)
+
   * Focus on dom animation 
   * Focus on mobile browser and advanced browser
   * Simple api: to, addClass, removeClass
