@@ -1,4 +1,5 @@
 #Simplean.js
+*语言：[English](README.en-us.md)*
 * 专注于移动端与高级浏览器
 * 专注于DOM动画
 * 专注于简单的特性，只提供三个API：to、addClass、removeClass
