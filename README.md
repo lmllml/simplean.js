@@ -4,7 +4,7 @@
 ## 目录
 - [简介](#introduce)
 - [快速开始](#quick-start)
-- [所有API](#all-api)
+- [API](#all-api)
   - [Simplean#to](#api-to)
   - [Simplean#addClass](#api-add-class)
   - [Simplean#removeClass](#api-remove-class)
@@ -39,8 +39,9 @@
     border-radius: '50px'
   });
  ```
+
 <a name="all-api"></a>
-## 所有API
+## API
 <a name="api-to"></a>
 ### Simplean#to(styles[, options])
 ````
