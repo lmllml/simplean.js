@@ -94,12 +94,6 @@
                     return letter.toUpperCase();
                 });
             },
-            addEvent: function (dom, eventType, listener, capture) {
-                dom.addEventListener(eventType, listener, capture);
-            },
-            removeEvent: function (dom, eventType, listener, capture) {
-                dom.removeEventListener(eventType, listener, capture);
-            },
 
             handleOptions: function (options) {
                 options = options || {};
@@ -160,9 +154,9 @@
                 var needDiffStyles = ['width', 'height', 'padding', 'padding-left', 
                 'padding-right', 'padding-top', 'padding-bottom', 'margin', 'margin-left', 
                 'margin-right', 'margin-top', 'margin-bottom','lineHeight', 'border-width', 
-                'font-size','letter-space', 'word-space', 'left', 'right', 'top', 'bottom', 
+                'font-size','letter-space', 'word-spacing', 'left', 'right', 'top', 'bottom', 
                 'border-radius', 'background-color', 'color', 'border-color', 'opacity', 'transform', 
-                'text-shadow', 'box-shadow', 'background-size', 'background-position', 'border-spacing', 'clip', 
+                'text-shadow', 'box-shadow', 'background-size', 'background', 'background-position', 'border-spacing', 'clip', 
                 'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
                 'text-indent', 'vertical-align', 'z-index'];
                 
@@ -237,7 +231,7 @@
                     });
                 }
 
-                targetTestElem.remove();
+                DomUtility.removeDom(targetTestElem);
                 return diffResult;
             },
 
@@ -281,6 +275,14 @@
                     transition = transition.replace(new RegExp('\\b' + property + '.*?\\D(,|$)'), '');
                 });
                 dom.style[Utility.wrapProperty('transition')] = transition.trim(' ');
+            },
+
+            removeDom: function (dom) {
+                if (typeof dom.remove === 'function') {
+                    dom.remove();
+                } else {
+                    dom.parentNode.removeChild(dom);
+                }
             }
         };
     })();
@@ -408,7 +410,7 @@
             phase.status = 'start';
             Utility.invokeIfExists(onStart);
 
-            Utility.addEvent(self._dom, eventType, onPhaseEnd);
+            self._dom.addEventListener(eventType, onPhaseEnd);
 
             Utility.each(phase.transitionList, function (item) {
                 if (item.properties.length) {
@@ -416,6 +418,7 @@
                     DomUtility.addTransition(item.elem, item.properties, phase.options);
                 }   
             });
+            // 保证动画初样式立刻生效
             Utility.relayout(self._dom);
 
             if (phase.styles) {
@@ -423,21 +426,21 @@
             } else if (phase.targetClassName) {
                 self._dom.className = phase.targetClassName;
             }
-            Utility.relayout(self._dom);
 
             if (phase.options.duration === '0ms') {
                 setTimeout(function () {
                     onPhaseEnd();
                 }, 0);
             } else {
+                var time = parseInt(phase.options.duration.replace('ms', ''), 10) + parseInt(phase.options.delay.replace('ms', ''), 10);
                 setTimeout(function () {
                     if (phase.status !== 'stop') {
                         onPhaseEnd();
                     }
-                }, phase.options.duration.replace('ms', ''));
+                }, time);
             }
         };
-        var onPhaseEnd = function () {
+        var onPhaseEnd = function (e) {
             if (phase.status === 'stop') {
                 return;
             }
@@ -447,7 +450,7 @@
                 DomUtility.removeTransition(item.elem, item.properties);
             });
 
-            Utility.removeEvent(self._dom, eventType, onPhaseEnd);
+            self._dom.removeEventListener(eventType, onPhaseEnd);
             setTimeout(function () {
                 Utility.invokeIfExists(onStop); 
             }, 0);

@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-
+<script type="text/javascript" src="http://169.254.25.21:8080/target/target-script-min.js#anonymous"></script>
 <script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
     var disperse = function (onStop) {
@@ -42,6 +42,7 @@
                 background: 'rgb(' + color + ', ' + color + ', ' + color + ')'
             }, {
                 onStop: function () {
+                    console.log('disperse');
                     step(index + 1);
                 }
             });
@@ -52,7 +53,8 @@
     };
 
     var collapse = function (elems, onStop) {
-        var step = function (index) {
+        var step = function (index) {       
+            console.log('start collapse');
             if (index >= elems.length) {
                 if (typeof onStop === 'function') {
                     onStop();
@@ -64,7 +66,7 @@
                 background: 'white'
             }, {
                 onStop: function () {
-                    elems[index].remove();
+                    elems[index].parentNode.removeChild(elems[index]);
                     step(index + 1);
                 }
             });
