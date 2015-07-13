@@ -147,7 +147,7 @@
             **/ 
             diffStyle: function (originDom, targetStyles) {
                 var originStyles = Utility.getComputedStyle(originDom);
-                var originTransitionProperty = originDom.style.transitionProperty;
+                var originTransitionProperty = DomUtility.css(originDom, 'transitionProperty');
 
                 var properties = [];
                 var needInit = {};
@@ -159,7 +159,7 @@
                 'text-shadow', 'box-shadow', 'background-size', 'background', 'background-position', 'border-spacing', 'clip', 
                 'max-width', 'max-height', 'min-width', 'min-height', 'outline', 
                 'text-indent', 'vertical-align', 'z-index'];
-                
+
                 for (var i = 0; i < needDiffStyles.length; i++) {
                     var property = needDiffStyles[i];
                     if (targetStyles[property] === undefined || originTransitionProperty.match('\\b' + property+ ',?\\b')) {
@@ -172,7 +172,7 @@
                             property === 'width' )&& !originDom.style[property]) {
                             needInit[property] = originStyles[property];
                         }
-                    }
+                    }    
                 }
 
                 return {
@@ -266,7 +266,7 @@
                 });
 
                 var currentTransition = dom.style[Utility.wrapProperty('transition')];
-                dom.style[Utility.wrapProperty('transition')] += currentTransition ? transition : transition.slice(2);
+                dom.style[Utility.wrapProperty('transition')] += currentTransition ? transition : transition.slice(2); 
             },
 
             removeTransition: function (dom, properties) {
@@ -277,6 +277,7 @@
                 dom.style[Utility.wrapProperty('transition')] = transition.trim(' ');
             },
 
+            // In some android
             removeDom: function (dom) {
                 if (typeof dom.remove === 'function') {
                     dom.remove();
@@ -293,7 +294,6 @@
         eventPrefix = '',
         testEl = document.createElement('div'),
         simpleanMap = new Map();
-
     if (testEl.style['transitionProperty'] === undefined) {
         Utility.each(vendors, function(vendor, event) {
             if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
@@ -335,6 +335,7 @@
         var self = this;
         this._status = 'start';
         var start = function () {
+
             // get phase
             var phase = self._phaseList[self._phaseIndex];
             if (!phase || phase.status !== 'unstart') {
@@ -407,6 +408,7 @@
         var eventType = eventPrefix ? eventPrefix + Utility.firstUppercase('transitionEnd') : 'transitionend';  
 
         var throughPhase = function () {
+
             phase.status = 'start';
             Utility.invokeIfExists(onStart);
 
@@ -418,6 +420,7 @@
                     DomUtility.addTransition(item.elem, item.properties, phase.options);
                 }   
             });
+
             // 保证动画初样式立刻生效
             Utility.relayout(self._dom);
 

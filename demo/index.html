@@ -33,6 +33,7 @@
                 }
                 return;
             }
+
             document.body.appendChild(elems[index]);
             var color = parseInt(255 / index);
             var x = -RADIUS * Math.sin(2 * Math.PI * index * ANGLE / 360);
@@ -54,7 +55,6 @@
 
     var collapse = function (elems, onStop) {
         var step = function (index) {       
-            console.log('start collapse');
             if (index >= elems.length) {
                 if (typeof onStop === 'function') {
                     onStop();
@@ -73,6 +73,7 @@
         };
         step(0);
     };
+    
     window.onload = function () {
         var animate = function () {
             disperse(function (elems) {
