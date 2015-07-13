@@ -4,3 +4,4 @@ pages:
 - API: api.md
 - 关于: about.md
 theme: readthedocs
+repo_url: https://github.com/liyandalmllml/simplean.js.git
