@@ -1,5 +1,6 @@
 site_name: Simplean.js
 pages:
-- Home: index.md
-- About: about.md
+- 概览: index.md
+- API: api.md
+- 关于: about.md
 theme: readthedocs
