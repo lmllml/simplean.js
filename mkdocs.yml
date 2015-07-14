@@ -1,7 +1,9 @@
-site_name: Simplean.js
+site_name: Simplean
+site_description: Simplean dom animation javascript
+site_author: liyanda
 pages:
 - 概览: index.md
 - API: api.md
-- 关于: about.md
+- 兼容性: compatibility.md
 theme: readthedocs
 repo_url: https://github.com/liyandalmllml/simplean.js.git
