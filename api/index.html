@@ -5,28 +5,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Simplean</title>
+  <title>API - Simplean</title>
   
 
-  <link rel="shortcut icon" href="./img/favicon.ico">
+  <link rel="shortcut icon" href="../img/favicon.ico">
 
   
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="./css/highlight.css">
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
 
   
   <script>
     // Current page data
-    var mkdocs_page_name = "None";
+    var mkdocs_page_name = "API";
   </script>
   
-  <script src="./js/jquery-2.1.1.min.js"></script>
-  <script src="./js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./js/highlight.pack.js"></script>
-  <script src="./js/theme.js"></script> 
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
 
   
 </head>
@@ -38,9 +38,9 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> Simplean</a>
+        <a href=".." class="icon icon-home"> Simplean</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
   </form>
 </div>
@@ -50,18 +50,25 @@
         <ul class="current">
           
             <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">概览</a>
+        
+    </li>
+<li>
+          
+            <li>
     <li class="toctree-l1 current">
-        <a class="current" href=".">概览</a>
+        <a class="current" href="./">API</a>
         
             <ul>
             
-                <li class="toctree-l3"><a href="#_1">介绍</a></li>
+                <li class="toctree-l3"><a href="#tostyles-options">to(styles[, options])</a></li>
                 
             
-                <li class="toctree-l3"><a href="#_2">快速开始</a></li>
+                <li class="toctree-l3"><a href="#addclassclassnames-options">addClass(classNames[, options])</a></li>
                 
             
-                <li class="toctree-l3"><a href="#_3">兼容性</a></li>
+                <li class="toctree-l3"><a href="#removeclassclassnames-options">removeClass(classNames[, options])</a></li>
                 
             
             </ul>
@@ -71,14 +78,7 @@
           
             <li>
     <li class="toctree-l1 ">
-        <a class="" href="api/">API</a>
-        
-    </li>
-<li>
-          
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="about/">关于</a>
+        <a class="" href="../about/">关于</a>
         
     </li>
 <li>
@@ -93,7 +93,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">Simplean</a>
+        <a href="..">Simplean</a>
       </nav>
 
       
@@ -101,11 +101,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
       
     
-    <li>概览</li>
+    <li>API</li>
     <li class="wy-breadcrumbs-aside">
       
         
@@ -119,33 +119,43 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="_1">介绍</h2>
-<p>Simplean是一个基于javascript的DOM动画库，目的是为了能够快速简单的创造出高性能、模块化的动画组件，随着便携式设备硬件性能的不断提升以及前端技术不断地推陈出新，Web Application体验会越来越好，但是距离Native App的交互体验还有一段距离，这种差距有一部分就体现在交互流畅性以及动画效果上，Simplean.js不仅仅是为了简单地创造动画组件，更重要的让你的Web Application具有交互上的流畅感。</p>
-<h2 id="_2">快速开始</h2>
-<ol>
-<li>
-<p>下载simplean.js文件到项目中</p>
-</li>
-<li>
-<p>页面中引入simplean.js脚本</p>
-<p><code>&lt;script type="text/javascript" src="***/simplean.js"&gt;&lt;/script&gt;</code></p>
-</li>
-<li>
-<p>初始化Simplean实例</p>
-<p><code>var dom = document.querySelector('div.animation');
-var sp = Simplean(dom);</code></p>
-</li>
-<li>
-<p>配置你想要的动画效果</p>
-<p><code>sp.to({
-    width: '200px',
-    height: '200px',
-    border-radius: '50px'
-  });</code></p>
-</li>
-</ol>
-<h2 id="_3">兼容性</h2>
-<p>支持IOS6.0+、Android4.0+</p>
+                <h2 id="tostyles-options">to(styles[, options])</h2>
+<pre><code>Simplean(dom).to({
+    width: 200px;
+    background-color: red;
+});
+Simplean(dom).to({
+    height: 200px;
+    border-radius: 50px;
+}, {
+    ease: 'ease-out'
+});
+</code></pre>
+<h2 id="addclassclassnames-options">addClass(classNames[, options])</h2>
+<pre><code>.highlight {
+    color: red;
+    background: blue;
+}
+
+Simplean(dom).addClass('highlight', {
+    ease: 'ease-in-out',
+    onStart: function () {
+        console.log('I will be highlight');
+    },
+    onStop: function () {
+        console.log('I\'m be highlight');
+    }
+});
+</code></pre>
+<h2 id="removeclassclassnames-options">removeClass(classNames[, options])</h2>
+<pre><code>.rotate-30 {
+    transform: rotate(30deg)
+}
+
+Simplean(dom).removeClass('rotate-30', {
+    ease: 'ease-in',
+});
+</code></pre>
               
             </div>
           </div>
@@ -153,8 +163,10 @@ var sp = Simplean(dom);</code></p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api/" class="btn btn-neutral float-right" title="API"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../about/" class="btn btn-neutral float-right" title="关于"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
+      
+        <a href=".." class="btn btn-neutral" title="概览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -182,16 +194,13 @@ var sp = Simplean(dom);</code></p>
           <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-        <span style="margin-left: 15px"><a href="api/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
 
 </body>
 </html>
-
-<!--
-MkDocs version : 0.14.0
-Build Date UTC : 2015-07-14 09:57:52.038691
--->
