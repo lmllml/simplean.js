@@ -8,6 +8,7 @@
   - [Simplean#to](#api-to)
   - [Simplean#addClass](#api-add-class)
   - [Simplean#removeClass](#api-remove-class)
+- [兼容性](#compatibility)
 - [BUG](#bug)
 
 <a name="introduce"></a>
@@ -87,6 +88,9 @@
         ease: 'ease-in',
     });
 ````
+<a name="compatability"></a>
+## 兼容性
+支持IOS6.0+、Android4.0+。
 
 <a name="bug"></a>
 ## BUG
