@@ -88,7 +88,7 @@
         ease: 'ease-in',
     });
 ````
-<a name="compatability"></a>
+<a name="compatibility"></a>
 ## 兼容性
 支持IOS6.0+、Android4.0+。
 
