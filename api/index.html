@@ -62,13 +62,17 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#tostyles-options">to(styles[, options])</a></li>
+                <li class="toctree-l3"><a href="#tostyles-options">.to(styles[, options])</a></li>
+                
+                    <li><a class="toctree-l4" href="#_1">简单用法</a></li>
+                
+                    <li><a class="toctree-l4" href="#options">OPTIONS</a></li>
                 
             
-                <li class="toctree-l3"><a href="#addclassclassnames-options">addClass(classNames[, options])</a></li>
+                <li class="toctree-l3"><a href="#addclassclassnames-options">.addClass(classNames[, options])]</a></li>
                 
             
-                <li class="toctree-l3"><a href="#removeclassclassnames-options">removeClass(classNames[, options])</a></li>
+                <li class="toctree-l3"><a href="#removeclassclassnames-options">.removeClass(classNames[, options])</a></li>
                 
             
             </ul>
@@ -78,7 +82,7 @@
           
             <li>
     <li class="toctree-l1 ">
-        <a class="" href="../about/">关于</a>
+        <a class="" href="../compatibility/">兼容性</a>
         
     </li>
 <li>
@@ -109,7 +113,7 @@
     <li class="wy-breadcrumbs-aside">
       
         
-          <a href="https://github.com/liyandalmllml/simplean{.js}.git" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/liyandalmllml/simplean.js.git" class="icon icon-github"> Edit on GitHub</a>
         
       
     </li>
@@ -119,11 +123,21 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="tostyles-options">to(styles[, options])</h2>
-<pre><code>Simplean(dom).to({
+                <h2 id="tostyles-options">.to(styles[, options])</h2>
+<h3 id="_1">简单用法</h3>
+<pre><code>// 在300ms内将dom的宽度平滑变换为200px，背景颜色平滑变换为红色。
+// 变换函数(transitionTimingFunction)为'linear'
+var dom = document.querySelector(selector);
+
+Simplean(dom).to({
     width: 200px;
     background-color: red;
 });
+
+// 在300ms内将dom的高度平滑变换为200px，圆角平滑变换为50px。
+// 变换函数(transitionTimingFunction)为'ease-out'(先快后慢)
+var dom = document.querySelector(selector);
+
 Simplean(dom).to({
     height: 200px;
     border-radius: 50px;
@@ -131,12 +145,103 @@ Simplean(dom).to({
     ease: 'ease-out'
 });
 </code></pre>
-<h2 id="addclassclassnames-options">addClass(classNames[, options])</h2>
+<h3 id="options">OPTIONS</h3>
+<p>OPTIONS最多可以有5个参数，分别为 <em>delay</em>、<em>duration</em>、<em>ease</em>、<em>onStart</em>、 <em>onStop</em></p>
+<h4 id="delay">delay</h4>
+<p>delay配置动画延迟多长时间开始执行，默认值为0。支持两种类型的值，string和number</p>
+<p><em>string</em></p>
+<pre><code>{
+    delay: '200ms' // 200ms
+}
+{
+    delay: '3s' // 3s
+}
+</code></pre>
+
+<p><em>int</em></p>
+<p>当为int时，单位为ms</p>
+<pre><code>{
+    delay: 200 // 200ms
+}
+{
+    delay: 3000 // 3000ms
+}
+</code></pre>
+
+<h4 id="duration">duration</h4>
+<p>duration配置动画执行时长，默认值为300ms。支持两种类型的值，string和number</p>
+<p><em>string</em></p>
+<pre><code>{
+    duration: '500ms' // 500ms
+}
+{
+    duration: '4s' // 4s
+}
+</code></pre>
+
+<p><em>int</em></p>
+<p>当为int时，单位为ms</p>
+<pre><code>{
+    duration: 500 // 500ms
+}
+{
+    duration: 4000 // 4000ms
+}
+</code></pre>
+
+<h4 id="ease">ease</h4>
+<p>ease配置动画的变换曲线函数，对应于transitionTimingFunction，支持<em>linear</em>、<em>ease-in</em>、<em>ease-out</em>、<em>ease-in-out</em>、<em>cubic-bezier</em>，默认值为<em>linear</em>。</p>
+<pre><code>{
+    delay: 200, // 动画延迟200ms执行
+    duration: 300, // 动画执行300ms
+    ease: 'linear' // 动画线性变换
+}
+</code></pre>
+
+<pre><code>{
+    delay: 500, // 动画延迟500ms执行
+    duration: 500, // 动画执行500ms
+    ease: 'cubic-bezier(.17, .67, .83, .67)' // 动画以cubic-bezier(.17, .67, .83, .57)生成的贝塞尔曲线来执行
+}
+</code></pre>
+
+<h4 id="onstartelem">onStart([elem])</h4>
+<p>onStart在动画开始执行前被调用，执行上下文(this)为Simplean
+实例，即Simplean(dom)，接受一个参数elem，为执行这个动画的dom元素。</p>
+<pre><code>{
+    delay: 200, // 动画延迟200ms执行
+    duration: 300, // 动画执行300ms
+    ease: 'ease-in', // 动画先快后慢
+    onStart: function (elem) {
+        // 在动画开始运行前调用
+        console.log(elem); // elem为执行这个动画的dom元素
+        console.log(this); // this为这个dom元素的Simplean实例，即Simplean(dom)
+    }
+}
+</code></pre>
+
+<h4 id="onstopelem">onStop([elem])</h4>
+<p>onStop在动画执行之后被调用，和onStart一样的，执行上下文(this)为Simplean
+实例，即Simplean(dom)，接受一个参数elem，为执行这个动画的dom元素。</p>
+<pre><code>{
+    delay: 200, // 动画延迟200ms执行
+    duration: 300, // 动画执行300ms
+    ease: 'ease-in', // 动画先快后慢
+    onStop: function (elem) {
+        // 在动画执行结束后调用
+        console.log(elem); // elem为执行这个动画的dom元素
+        console.log(this); // this为这个dom元素的Simplean实例，即Simplean(dom)
+    }
+}
+</code></pre>
+
+<h2 id="addclassclassnames-options">.addClass(classNames[, options])]</h2>
 <pre><code>.highlight {
     color: red;
     background: blue;
 }
 
+var dom = document.querySelector(selector);
 Simplean(dom).addClass('highlight', {
     ease: 'ease-in-out',
     onStart: function () {
@@ -147,7 +252,7 @@ Simplean(dom).addClass('highlight', {
     }
 });
 </code></pre>
-<h2 id="removeclassclassnames-options">removeClass(classNames[, options])</h2>
+<h2 id="removeclassclassnames-options">.removeClass(classNames[, options])</h2>
 <pre><code>.rotate-30 {
     transform: rotate(30deg)
 }
@@ -163,7 +268,7 @@ Simplean(dom).removeClass('rotate-30', {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../about/" class="btn btn-neutral float-right" title="关于"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../compatibility/" class="btn btn-neutral float-right" title="兼容性"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href=".." class="btn btn-neutral" title="概览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -197,7 +302,7 @@ Simplean(dom).removeClass('rotate-30', {
         <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../compatibility/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
