@@ -14,7 +14,6 @@
     </style>
 </head>
 <body>
-<script type="text/javascript" src="http://169.254.25.21:8080/target/target-script-min.js#anonymous"></script>
 <script type="text/javascript" src="../simplean.js"></script>
 <script type="text/javascript">
     var disperse = function (onStop) {
@@ -35,7 +34,7 @@
             }
 
             document.body.appendChild(elems[index]);
-            var color = parseInt(255 / index);
+            var color = parseInt(255 / (index + 1));
             var x = -RADIUS * Math.sin(2 * Math.PI * index * ANGLE / 360);
             var y = -RADIUS * Math.cos(2 * Math.PI * index * ANGLE / 360);
             Simplean(elems[index]).to({
@@ -43,7 +42,6 @@
                 background: 'rgb(' + color + ', ' + color + ', ' + color + ')'
             }, {
                 onStop: function () {
-                    console.log('disperse');
                     step(index + 1);
                 }
             });

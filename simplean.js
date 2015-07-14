@@ -127,6 +127,21 @@
                 return property;
             },
 
+            addCssPrefix: function (property) {
+                var needCompatible = [
+                    'transition',
+                    'transition-delay', 
+                    'transition-property', 
+                    'transition-duration', 
+                    'transition-timing-function',
+                    'transform'
+                ];
+                if (needCompatible.indexOf(property) > -1 && cssPrefix) {
+                    property = cssPrefix + property;
+                }
+                return property;      
+            },
+
             invokeIfExists: function (func, args, context) {
                 if (typeof func === 'function') {
                     func.apply(context, args);
@@ -145,7 +160,7 @@
             * be attention to vertical-align is not number or percentage
             * be attention to top, right, left and bottom is auto 
             **/ 
-            diffStyle: function (originDom, targetStyles) {
+            diffStyle: function (originDom, targetStyles, noPrefix) {
                 var originStyles = Utility.getComputedStyle(originDom);
                 var originTransitionProperty = DomUtility.css(originDom, 'transitionProperty');
 
@@ -162,15 +177,18 @@
 
                 for (var i = 0; i < needDiffStyles.length; i++) {
                     var property = needDiffStyles[i];
-                    if (targetStyles[property] === undefined || originTransitionProperty.match('\\b' + property+ ',?\\b')) {
+                    var cssProperty = Utility.addCssPrefix(property);
+                    var jsProperty = Utility.wrapProperty(property);
+                    if (targetStyles[noPrefix ? property : jsProperty] === undefined || 
+                        originTransitionProperty.match('(^|\\s)' + cssProperty + ',?\\b')) {
                         continue;
                     } 
 
-                    if (originStyles[property] !== targetStyles[property]) {
-                        properties.push(property);
-                        if ((property === 'height' || 
-                            property === 'width' )&& !originDom.style[property]) {
-                            needInit[property] = originStyles[property];
+                    if (originStyles[jsProperty] !== targetStyles[jsProperty]) {
+                        properties.push(cssProperty);
+                        if ((jsProperty === 'height' || 
+                            jsProperty === 'width' )&& !originDom.style[jsProperty]) {
+                            needInit[cssProperty] = originStyles[jsProperty];
                         }
                     }    
                 }
@@ -259,6 +277,9 @@
                 };
 
                 Utility.each(properties, function (property) {
+                    // safari中transform必须加前缀
+                    property = Utility.addCssPrefix(property);
+
                     transition += ', ' + property + ' ' + 
                                 options.duration + ' ' + 
                                 getValue(options.ease, property, 'linear') + ' ' + 
@@ -272,7 +293,10 @@
             removeTransition: function (dom, properties) {
                 var transition = dom.style[Utility.wrapProperty('transition')];
                 Utility.each(properties, function (property) {
-                    transition = transition.replace(new RegExp('\\b' + property + '.*?\\D(,|$)'), '');
+                    // safari中transform必须加前缀
+                    property = Utility.addCssPrefix(property);
+                    
+                    transition = transition.replace(new RegExp('(^|\\s)' + property + '\\b.*?\\D(,|$)'), '');
                 });
                 dom.style[Utility.wrapProperty('transition')] = transition.trim(' ');
             },
@@ -294,15 +318,15 @@
         eventPrefix = '',
         testEl = document.createElement('div'),
         simpleanMap = new Map();
-    if (testEl.style['transitionProperty'] === undefined) {
-        Utility.each(vendors, function(vendor, event) {
-            if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
-              cssPrefix = '-' + vendor.toLowerCase() + '-';
-              eventPrefix = event;
-              return false;
-            }
-        });
-    }
+
+    // safari的transform属性必须加webkit前缀(在safari 8.0.4版本的测试结论)
+    Utility.each(vendors, function(vendor, event) {
+        if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
+          cssPrefix = '-' + vendor.toLowerCase() + '-';
+          eventPrefix = event;
+          return false;
+        }
+    });
 
     var Simplean = function (dom) {
         if (!dom instanceof HTMLElement) {
@@ -378,13 +402,12 @@
                 phase.transitionList = diffResult.map(function (result) {
                     return {
                         elem: result.elem,
-                        properties: result.properties,
-                        needInit: result.needInit
+                        properties: result.properties
                     };
                 });
                 phase.targetClassName = targetClassName;
             } else {
-                var diffResult = DomUtility.diffStyle(self._dom, phase.styles);
+                var diffResult = DomUtility.diffStyle(self._dom, phase.styles, true);
                 phase.transitionList = [{
                     elem: self._dom,
                     properties: diffResult.properties,
