@@ -1,130 +1,126 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>API - Simplean</title>
-  
-
-  <link rel="shortcut icon" href="../img/favicon.ico">
-
-  
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="../css/highlight.css">
-
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "API";
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js"></script>
-  <script src="../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../js/highlight.pack.js"></script>
-  <script src="../js/theme.js"></script> 
-
-  
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> Simplean</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        <ul class="current">
-          
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="..">概览</a>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-    </li>
-<li>
-          
-            <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="./">API</a>
+        <meta name="author" content="liyanda">
         
-            <ul>
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>API - Simplean</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">Simplean</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
             
-                <li class="toctree-l3"><a href="#tostyles-options">.to(styles[, options])</a></li>
-                
-                    <li><a class="toctree-l4" href="#_1">简单用法</a></li>
-                
-                    <li><a class="toctree-l4" href="#options">OPTIONS</a></li>
-                
             
-                <li class="toctree-l3"><a href="#addclassclassnames-options">.addClass(classNames[, options])]</a></li>
-                
+                <li >
+                    <a href="..">概览</a>
+                </li>
             
-                <li class="toctree-l3"><a href="#removeclassclassnames-options">.removeClass(classNames[, options])</a></li>
-                
+            
+            
+                <li class="active">
+                    <a href="./">API</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../feature/">特性</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../compatibility/">兼容性</a>
+                </li>
+            
             
             </ul>
-        
-    </li>
-<li>
-          
-            <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../compatibility/">兼容性</a>
-        
-    </li>
-<li>
-          
-        </ul>
-      </div>
-      &nbsp;
-    </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">Simplean</a>
-      </nav>
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>API</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        
-          <a href="https://github.com/liyandalmllml/simplean.js.git" class="icon icon-github"> Edit on GitHub</a>
-        
-      
-    </li>
-  </ul>
-  <hr/>
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li >
+                    <a rel="next" href="..">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../feature/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/liyandalmllml/simplean.js.git">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
 </div>
-          <div role="main">
-            <div class="section">
-              
-                <h2 id="tostyles-options">.to(styles[, options])</h2>
-<h3 id="_1">简单用法</h3>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#api">API</a></li>
+        
+            <li><a href="#tostyles-options">.to(styles[, options])</a></li>
+        
+            <li><a href="#addclassclassnames-options">.addClass(classNames[, options])]</a></li>
+        
+            <li><a href="#removeclassclassnames-options">.removeClass(classNames[, options])</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="api">API</h1>
+<h2 id="tostyles-options">.to(styles[, options])</h2>
 <pre><code>// 在300ms内将dom的宽度平滑变换为200px，背景颜色平滑变换为红色。
 // 变换函数(transitionTimingFunction)为'linear'
 var dom = document.querySelector(selector);
@@ -145,11 +141,12 @@ Simplean(dom).to({
     ease: 'ease-out'
 });
 </code></pre>
-<h3 id="options">OPTIONS</h3>
-<p>OPTIONS最多可以有5个参数，分别为 <em>delay</em>、<em>duration</em>、<em>ease</em>、<em>onStart</em>、 <em>onStop</em></p>
-<h4 id="delay">delay</h4>
-<p>delay配置动画延迟多长时间开始执行，默认值为0。支持两种类型的值，string和number</p>
-<p><em>string</em></p>
+<h4 id="options">OPTIONS</h4>
+<p>OPTIONS支持5个参数，分别为 <em>delay</em>、<em>duration</em>、<em>ease</em>、<em>onStart</em>、 <em>onStop</em></p>
+<p><strong>delay</strong></p>
+<p>支持类型: <em>string</em>、<em>number</em></p>
+<p>设置动画延迟多长时间开始执行，默认值为0ms。</p>
+<p>参数为<em>string</em>类型:</p>
 <pre><code>{
     delay: '200ms' // 200ms
 }
@@ -158,8 +155,7 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<p><em>int</em></p>
-<p>当为int时，单位为ms</p>
+<p>参数为<em>int</em>类型：</p>
 <pre><code>{
     delay: 200 // 200ms
 }
@@ -168,9 +164,10 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<h4 id="duration">duration</h4>
-<p>duration配置动画执行时长，默认值为300ms。支持两种类型的值，string和number</p>
-<p><em>string</em></p>
+<p><strong> duration </strong></p>
+<p>支持类型: <em>string</em>、<em>number</em></p>
+<p>设置动画执行时长，默认值为300ms。</p>
+<p>参数为<em>string</em>类型:</p>
 <pre><code>{
     duration: '500ms' // 500ms
 }
@@ -179,8 +176,7 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<p><em>int</em></p>
-<p>当为int时，单位为ms</p>
+<p>参数为<em>int</em>类型:</p>
 <pre><code>{
     duration: 500 // 500ms
 }
@@ -189,8 +185,10 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<h4 id="ease">ease</h4>
-<p>ease配置动画的变换曲线函数，对应于transitionTimingFunction，支持<em>linear</em>、<em>ease-in</em>、<em>ease-out</em>、<em>ease-in-out</em>、<em>cubic-bezier</em>，默认值为<em>linear</em>。</p>
+<p><strong> ease </strong></p>
+<p>支持类型：<em>string</em></p>
+<p>设置动画的变换曲线函数，对应于transitionTimingFunction。</p>
+<p>支持<em>linear</em>、<em>ease-in</em>、<em>ease-out</em>、<em>ease-in-out</em>、<em>cubic-bezier</em>，默认值为<em>linear</em>。</p>
 <pre><code>{
     delay: 200, // 动画延迟200ms执行
     duration: 300, // 动画执行300ms
@@ -205,9 +203,9 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<h4 id="onstartelem">onStart([elem])</h4>
-<p>onStart在动画开始执行前被调用，执行上下文(this)为Simplean
-实例，即Simplean(dom)，接受一个参数elem，为执行这个动画的dom元素。</p>
+<p><strong> onStart([elem]) </strong></p>
+<p>支持类型： <em>function</em></p>
+<p>在动画开始前被调用，开始前还包含动画的延迟时间(delay)，接受一个参数elem，即运行这个动画的DOM元素， this为Simplean(elem)。</p>
 <pre><code>{
     delay: 200, // 动画延迟200ms执行
     duration: 300, // 动画执行300ms
@@ -220,9 +218,8 @@ Simplean(dom).to({
 }
 </code></pre>
 
-<h4 id="onstopelem">onStop([elem])</h4>
-<p>onStop在动画执行之后被调用，和onStart一样的，执行上下文(this)为Simplean
-实例，即Simplean(dom)，接受一个参数elem，为执行这个动画的dom元素。</p>
+<p><strong> onStop([elem]) </strong></p>
+<p>在动画运行结束之后被调用，接受一个参数elem，即运行这个动画的DOM元素， this为Simplean(elem)。</p>
 <pre><code>{
     delay: 200, // 动画延迟200ms执行
     duration: 300, // 动画执行300ms
@@ -260,52 +257,18 @@ Simplean(dom).addClass('highlight', {
 Simplean(dom).removeClass('rotate-30', {
     ease: 'ease-in',
 });
-</code></pre>
-              
-            </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../compatibility/" class="btn btn-neutral float-right" title="兼容性"/>Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href=".." class="btn btn-neutral" title="概览"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-    
-  </div>
-
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-	  
+</code></pre></div>
         </div>
-      </div>
 
-    </section>
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
-  </div>
-
-<div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-          <a class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
-      
-      
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../compatibility/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
-</div>
-
-</body>
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
 </html>
