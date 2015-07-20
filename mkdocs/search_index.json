@@ -51,6 +51,16 @@
             "title": "\u7279\u6027"
         }, 
         {
+            "location": "/demo/", 
+            "text": "\u95ea\u70c1", 
+            "title": "DEMO"
+        }, 
+        {
+            "location": "/demo/#_1", 
+            "text": "", 
+            "title": "\u95ea\u70c1"
+        }, 
+        {
             "location": "/compatibility/", 
             "text": "", 
             "title": "\u517c\u5bb9\u6027"

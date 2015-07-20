@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>特性 - Simplean</title>
+	<title>DEMO - Simplean</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -62,14 +62,14 @@
             
             
             
-                <li class="active">
-                    <a href="./">特性</a>
+                <li >
+                    <a href="../feature/">特性</a>
                 </li>
             
             
             
-                <li >
-                    <a href="../demo/">DEMO</a>
+                <li class="active">
+                    <a href="./">DEMO</a>
                 </li>
             
             
@@ -84,12 +84,12 @@
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
                 <li >
-                    <a rel="next" href="../api/">
+                    <a rel="next" href="../feature/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
                 <li >
-                    <a rel="prev" href="../demo/">
+                    <a rel="prev" href="../compatibility/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -112,33 +112,15 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#_1">单例</a></li>
-        
-    
-        <li class="main "><a href="#_2">链式调用</a></li>
+        <li class="main active"><a href="#_1">闪烁</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h3 id="_1">单例</h3>
-<p>同一DOM元素多次Simplean化，得到同一实例</p>
-<pre><code>var s1 = Simplean(dom);
-var s2 = Simplean(dom);
-s1 === s2; // true
-</code></pre>
-
-<h3 id="_2">链式调用</h3>
-<p>Simplean支持链式调用，链式调用可以保证同一个DOM元素的动画线性运行，DOM的Simplean实例会维护一个动画队列，以确保动画的线性执行且不相互影响，动画队列支持FIFO。</p>
-<pre><code>Simplean(dom).to({
-    width: '200px',
-    height: '200px'
-}).to({
-    width: '300px',
-    height: '300px'
-});
-</code></pre></div>
+<h2 id="_1">闪烁</h2>
+<p><iframe style="width: 100%; height: 500px" src="http://jsfiddle.net/zhanglei/QZJGZ/embedded/result,js,html,css"></iframe></p></div>
         </div>
 
         <footer class="col-md-12">
