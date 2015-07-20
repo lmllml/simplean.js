@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "\u4ecb\u7ecd\n\n\nSimplean\u662f\u4e00\u4e2a\u57fa\u4e8ejavascript\u7684DOM\u52a8\u753b\u5e93\uff0c\u76ee\u7684\u662f\u4e3a\u4e86\u80fd\u591f\u5feb\u901f\u7b80\u5355\u7684\u521b\u9020\u51fa\u9ad8\u6027\u80fd\u3001\u6a21\u5757\u5316\u7684\u52a8\u753b\u7ec4\u4ef6\uff0c\u968f\u7740\u4fbf\u643a\u5f0f\u8bbe\u5907\u786c\u4ef6\u6027\u80fd\u7684\u4e0d\u65ad\u63d0\u5347\u4ee5\u53ca\u524d\u7aef\u6280\u672f\u4e0d\u65ad\u5730\u63a8\u9648\u51fa\u65b0\uff0cWeb Application\u4f53\u9a8c\u4f1a\u8d8a\u6765\u8d8a\u597d\uff0c\u4f46\u662f\u8ddd\u79bbNative App\u7684\u4ea4\u4e92\u4f53\u9a8c\u8fd8\u6709\u4e00\u6bb5\u8ddd\u79bb\uff0c\u8fd9\u79cd\u5dee\u8ddd\u6709\u4e00\u90e8\u5206\u5c31\u4f53\u73b0\u5728\u4ea4\u4e92\u6d41\u7545\u6027\u4ee5\u53ca\u52a8\u753b\u6548\u679c\u4e0a\uff0cSimplean.js\u4e0d\u4ec5\u4ec5\u662f\u4e3a\u4e86\u7b80\u5355\u5730\u521b\u9020\u52a8\u753b\u7ec4\u4ef6\uff0c\u66f4\u91cd\u8981\u7684\u8ba9\u4f60\u7684Web Application\u5177\u6709\u4ea4\u4e92\u4e0a\u7684\u6d41\u7545\u611f\u3002\n\n\n\u5feb\u901f\u5f00\u59cb\n\n\n\n\n\n\n\u4e0b\u8f7dsimplean.js\u6587\u4ef6\u5230\u9879\u76ee\u4e2d\n\n\n\n\n\n\n\u9875\u9762\u4e2d\u5f15\u5165simplean.js\u811a\u672c\n\n\nscript type=\"text/javascript\" src=\"***/simplean.js\"\n/script\n\n\n\n\n\n\n\u521d\u59cb\u5316Simplean\u5b9e\u4f8b\n\n\nvar dom = document.querySelector('div.animation');\nvar sp = Simplean(dom);\n\n\n\n\n\n\n\u914d\u7f6e\u4f60\u60f3\u8981\u7684\u52a8\u753b\u6548\u679c\n\n\nsp.to({\n    width: '200px',\n    height: '200px',\n    border-radius: '50px'\n  });\n\n\n\n\n\n\n\u517c\u5bb9\u6027\n\n\n\u652f\u6301IOS6.0+\u3001Android4.0+\u3002\n\u67e5\u770b\u8be6\u60c5", 
+            "text": "\u4ecb\u7ecd\n\n\nSimplean\u662f\u4e00\u4e2a\u57fa\u4e8ejavascript\u7684DOM\u52a8\u753b\u5e93\uff0c\u76ee\u7684\u662f\u4e3a\u4e86\u80fd\u591f\u5feb\u901f\u7b80\u5355\u7684\u521b\u9020\u51fa\u9ad8\u6027\u80fd\u3001\u6a21\u5757\u5316\u7684\u52a8\u753b\u7ec4\u4ef6\uff0c\u968f\u7740\u4fbf\u643a\u5f0f\u8bbe\u5907\u786c\u4ef6\u6027\u80fd\u7684\u4e0d\u65ad\u63d0\u5347\u4ee5\u53ca\u524d\u7aef\u6280\u672f\u4e0d\u65ad\u5730\u63a8\u9648\u51fa\u65b0\uff0cWeb Application\u4f53\u9a8c\u4f1a\u8d8a\u6765\u8d8a\u597d\uff0c\u4f46\u662f\u8ddd\u79bbNative App\u7684\u4ea4\u4e92\u4f53\u9a8c\u8fd8\u6709\u4e00\u6bb5\u8ddd\u79bb\uff0c\u8fd9\u79cd\u5dee\u8ddd\u6709\u4e00\u90e8\u5206\u5c31\u4f53\u73b0\u5728\u4ea4\u4e92\u6d41\u7545\u6027\u4ee5\u53ca\u52a8\u753b\u6548\u679c\u4e0a\uff0cSimplean.js\u4e0d\u4ec5\u4ec5\u662f\u4e3a\u4e86\u7b80\u5355\u5730\u521b\u9020\u52a8\u753b\u7ec4\u4ef6\uff0c\u66f4\u91cd\u8981\u7684\u8ba9\u4f60\u7684Web Application\u5177\u6709\u4ea4\u4e92\u4e0a\u7684\u6d41\u7545\u611f\u3002\n\n\n\u5feb\u901f\u5f00\u59cb\n\n\n\n\n\n\n\u4e0b\u8f7d\nsimplean.js\n\u6587\u4ef6\u5230\u9879\u76ee\u4e2d\n\n\n\n\n\n\n\u9875\u9762\u4e2d\u5f15\u5165simplean.js\u811a\u672c\n\n\nscript type=\"text/javascript\" src=\"***/simplean.js\"\n/script\n\n\n\n\n\n\n\u521d\u59cb\u5316Simplean\u5b9e\u4f8b\n\n\nvar dom = document.querySelector('div.animation');\nvar sp = Simplean(dom);\n\n\n\n\n\n\n\u914d\u7f6e\u4f60\u60f3\u8981\u7684\u52a8\u753b\u6548\u679c\n\n\nsp.to({\n    width: '200px',\n    height: '200px',\n    border-radius: '50px'\n  });\n\n\n\n\n\n\n\u517c\u5bb9\u6027\n\n\n\u652f\u6301IOS6.0+\u3001Android4.0+\u3002\n\u67e5\u770b\u8be6\u60c5", 
             "title": "\u6982\u89c8"
         }, 
         {
@@ -12,7 +12,7 @@
         }, 
         {
             "location": "/#_2", 
-            "text": "\u4e0b\u8f7dsimplean.js\u6587\u4ef6\u5230\u9879\u76ee\u4e2d    \u9875\u9762\u4e2d\u5f15\u5165simplean.js\u811a\u672c  script type=\"text/javascript\" src=\"***/simplean.js\" /script    \u521d\u59cb\u5316Simplean\u5b9e\u4f8b  var dom = document.querySelector('div.animation');\nvar sp = Simplean(dom);    \u914d\u7f6e\u4f60\u60f3\u8981\u7684\u52a8\u753b\u6548\u679c  sp.to({\n    width: '200px',\n    height: '200px',\n    border-radius: '50px'\n  });", 
+            "text": "\u4e0b\u8f7d simplean.js \u6587\u4ef6\u5230\u9879\u76ee\u4e2d    \u9875\u9762\u4e2d\u5f15\u5165simplean.js\u811a\u672c  script type=\"text/javascript\" src=\"***/simplean.js\" /script    \u521d\u59cb\u5316Simplean\u5b9e\u4f8b  var dom = document.querySelector('div.animation');\nvar sp = Simplean(dom);    \u914d\u7f6e\u4f60\u60f3\u8981\u7684\u52a8\u753b\u6548\u679c  sp.to({\n    width: '200px',\n    height: '200px',\n    border-radius: '50px'\n  });", 
             "title": "\u5feb\u901f\u5f00\u59cb"
         }, 
         {
@@ -52,13 +52,23 @@
         }, 
         {
             "location": "/demo/", 
-            "text": "\u95ea\u70c1", 
+            "text": "\u95ea\u70c1\n\n\n\n\n\u6643\u52a8\n\n\n\n\n\u6447\u6446", 
             "title": "DEMO"
         }, 
         {
             "location": "/demo/#_1", 
             "text": "", 
             "title": "\u95ea\u70c1"
+        }, 
+        {
+            "location": "/demo/#_2", 
+            "text": "", 
+            "title": "\u6643\u52a8"
+        }, 
+        {
+            "location": "/demo/#_3", 
+            "text": "", 
+            "title": "\u6447\u6446"
         }, 
         {
             "location": "/compatibility/", 
