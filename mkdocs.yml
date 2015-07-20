@@ -4,6 +4,8 @@ site_author: liyanda
 pages:
 - 概览: index.md
 - API: api.md
+- 特性: feature.md
+- DEMO: demo.md
 - 兼容性: compatibility.md
-theme: readthedocs
+theme: yeti
 repo_url: https://github.com/liyandalmllml/simplean.js.git
