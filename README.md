@@ -10,7 +10,7 @@
   - [Simplean#removeClass](#api-remove-class)
 - [兼容性](#compatibility)
 - [BUG](#bug)
-- [Changellog](#changeLog)
+- [Changelog](#changeLog)
 
 <a name="introduce"></a>
 ## 简介
@@ -99,4 +99,4 @@
 
 <a name="changeLog"></a>
 ## Changelog
-详情[http://liyandalmllml.github.io/simplean.js]
+[详情](http://liyandalmllml.github.io/simplean.js)
