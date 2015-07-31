@@ -1,9 +1,14 @@
 {
-    "name": "simplean.js",
-    "version": "0.0.4",
-    "description": "A tool for simply creating dom animation.",
-    "author": {
-        "name": "liyanda",
-        "email": "liyanda@meituan.com"
-    }
+  "name": "simplean.js",
+  "version": "0.0.4",
+  "description": "A tool for simply creating dom animation.",
+  "author": {
+    "name": "liyanda",
+    "email": "liyanda@meituan.com"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.2.0"
+  }
 }
