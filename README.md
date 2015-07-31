@@ -1,4 +1,4 @@
-#Simplean.js
+#Simplean.js V0.0.4
 *language：[English](README.en-us.md)*
 
 ## 目录
