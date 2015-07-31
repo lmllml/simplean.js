@@ -7,5 +7,6 @@ pages:
 - 特性: feature.md
 - DEMO: demo.md
 - 兼容性: compatibility.md
+- ChangeLog: changelog.md
 theme: yeti
 repo_url: https://github.com/liyandalmllml/simplean.js.git
