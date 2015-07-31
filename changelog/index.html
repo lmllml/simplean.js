@@ -4,17 +4,17 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Simplean dom animation javascript">
+        
         <meta name="author" content="liyanda">
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Simplean</title>
+	<title>ChangeLog - Simplean</title>
 
-        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/highlight.css">
-        <link href="./css/base.css" rel="stylesheet">
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">Simplean</a>
+            <a class="navbar-brand" href="..">Simplean</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -50,38 +50,38 @@
             <ul class="nav navbar-nav">
             
             
+                <li >
+                    <a href="..">概览</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../api/">API</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../feature/">特性</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../demo/">DEMO</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../compatibility/">兼容性</a>
+                </li>
+            
+            
+            
                 <li class="active">
-                    <a href=".">概览</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="api/">API</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="feature/">特性</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="demo/">DEMO</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="compatibility/">兼容性</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="changelog/">ChangeLog</a>
+                    <a href="./">ChangeLog</a>
                 </li>
             
             
@@ -89,13 +89,13 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="disabled">
-                    <a rel="next" >
+                <li >
+                    <a rel="next" href="../compatibility/">
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li >
-                    <a rel="prev" href="api/">
+                <li class="disabled">
+                    <a rel="prev" >
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -118,47 +118,33 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#simplean-004">Simplean 0.0.4</a></li>
+        <li class="main active"><a href="#changelog">Changelog</a></li>
         
-            <li><a href="#_1">介绍</a></li>
+            <li><a href="#004">0.0.4</a></li>
         
-            <li><a href="#_2">快速开始</a></li>
+            <li><a href="#003">0.0.3</a></li>
         
-            <li><a href="#_3">兼容性</a></li>
+            <li><a href="#002">0.0.2</a></li>
+        
+            <li><a href="#001">0.0.1</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h1 id="simplean-004">Simplean 0.0.4</h1>
-<h2 id="_1">介绍</h2>
-<p>Simplean是一个基于javascript的DOM动画库，目的是为了能够快速简单的创造出高性能、模块化的动画组件，随着便携式设备硬件性能的不断提升以及前端技术不断地推陈出新，Web Application体验会越来越好，但是距离Native App的交互体验还有一段距离，这种差距有一部分就体现在交互流畅性以及动画效果上，Simplean.js不仅仅是为了简单地创造动画组件，更重要的让你的Web Application具有交互上的流畅感。</p>
-<h2 id="_2">快速开始</h2>
-<ol>
-<li>
-<p>下载<a href="http://liyandalmllml.github.io/js/simplean.js">simplean.js</a>文件到项目中</p>
-</li>
-<li>
-<p>页面中引入simplean.js脚本</p>
-<p><code>&lt;script type="text/javascript" src="***/simplean.js"&gt;&lt;/script&gt;</code></p>
-</li>
-<li>
-<p>初始化Simplean实例</p>
-<p><code>var dom = document.querySelector('div.animation');
-var sp = Simplean(dom);</code></p>
-</li>
-<li>
-<p>配置你想要的动画效果</p>
-<p><code>sp.to({
-    width: '200px',
-    height: '200px',
-    border-radius: '50px'
-  });</code></p>
-</li>
-</ol>
-<h2 id="_3">兼容性</h2>
-<p>支持IOS6.0+、Android4.0+。<a href="compatibility/">查看详情</a></p></div>
+<h1 id="changelog">Changelog</h1>
+<h3 id="004">0.0.4</h3>
+<p>支持ease属性的value function</p>
+<p>解决transition冲突问题</p>
+<h3 id="003">0.0.3</h3>
+<p>addClass、removeClass支持深度diff</p>
+<h3 id="002">0.0.2</h3>
+<p>添加addClass、removeClass</p>
+<h3 id="001">0.0.1</h3>
+<p>添加to</p>
+<p>实现动画的链式调用</p>
+<p>实现onStart、onStop回调</p></div>
         </div>
 
         <footer class="col-md-12">
@@ -167,9 +153,9 @@ var sp = Simplean(dom);</code></p>
             <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
         </footer>
 
-        <script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script>
-        <script src="./js/base.js"></script>
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
     </body>
 </html>
