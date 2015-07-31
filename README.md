@@ -1,4 +1,4 @@
-#Simplean.js V0.0.4
+#Simplean.js 0.0.4
 *language：[English](README.en-us.md)*
 
 ## 目录
@@ -10,6 +10,7 @@
   - [Simplean#removeClass](#api-remove-class)
 - [兼容性](#compatibility)
 - [BUG](#bug)
+- [ChangeLog](#changeLog)
 
 <a name="introduce"></a>
 ## 简介
@@ -95,3 +96,7 @@
 <a name="bug"></a>
 ## BUG
 发一个issue，我们会快速响应。
+
+<a name="changeLog"></a>
+## ChangeLog
+详情(http://liyandalmllml.github.io/simplean.js)
