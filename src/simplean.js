@@ -206,9 +206,13 @@ _Simplean.prototype.to = function (styles, options) {
     return self; 
 };
 
-window.Simplean = Simplean;
+if (typeof window === 'object') {
+    window.Simplean = Simplean;
+}
 if (typeof define !== 'undefined' &&  define.amd) {
     define(function () {
         return Simplean;
     });
+} else if (typeof module === 'object' && typeof module.exports === 'object') {
+    module.exports = Simplean;
 }

@@ -14,13 +14,11 @@ gulp.task('clean', function () {
 
 gulp.task('build', ['clean'], function () {
     return gulp.src([
-        'map.js',
-        'utility.js',
-        'domUtility.js',
-        'simplean.js'
-    ], {
-        base: SRC
-    }).pipe(concat('simplean.js'))
+        SRC + 'map.js',
+        SRC + 'utility.js',
+        SRC + 'domUtility.js',
+        SRC + 'simplean.js'
+    ]).pipe(concat('simplean.js'))
     .pipe(gulp.dest(DIST));
 });
 
@@ -31,6 +29,6 @@ gulp.task('deploy', ['build'], function () {
     .pipe(gulp.dest(DIST)); 
 });
 
-gulp.task('dev', function () {
+gulp.task('dev', ['build'], function () {
     return gulp.watch(SRC + '**/*.js', ['build']);
 });

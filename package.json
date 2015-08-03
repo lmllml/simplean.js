@@ -2,11 +2,14 @@
   "name": "simplean.js",
   "version": "0.0.4",
   "description": "A tool for simply creating dom animation.",
+  "main": "build/simplean.js",
   "author": {
     "name": "liyanda",
-    "email": "liyanda@meituan.com"
+    "email": "liyandalmllml@gmail.com"
   },
   "keywords": "animation dom mobile html5 css3",
+  "license": "MIT",
+  "repository": "liyandalmllml/simplean.js",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
