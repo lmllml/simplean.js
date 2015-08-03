@@ -1,6 +1,7 @@
 #Simplean.js 0.0.4
     
 [![npm](https://img.shields.io/badge/npm-0.0.4-orange.svg)](https://www.npmjs.com/package/simplean.js)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/liyandalmllml/simplean.js/blob/dev/LICENSE)
 
 ## 目录
 - [简介](#introduce)
