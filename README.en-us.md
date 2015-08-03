@@ -1,5 +1,4 @@
 #Simplean.js
-*语言：[中文](README.md)*
 
   * Focus on dom animation 
   * Focus on mobile browser and advanced browser

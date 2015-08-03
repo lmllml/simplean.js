@@ -1,4 +1,6 @@
 #Simplean.js 0.0.4
+    
+[![NPM version][npm-image]][npm-url]
 
 ## 目录
 - [简介](#introduce)
