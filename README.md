@@ -11,6 +11,7 @@
 - [兼容性](#compatibility)
 - [BUG](#bug)
 - [Changelog](#changeLog)
+- [LICENSE](#license)
 
 <a name="introduce"></a>
 ## 简介
@@ -100,3 +101,7 @@
 <a name="changeLog"></a>
 ## Changelog
 [详情](http://liyandalmllml.github.io/simplean.js)
+
+<a name="license"></a>
+## LICENSE
+MIT
