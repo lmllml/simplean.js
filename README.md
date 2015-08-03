@@ -1,5 +1,4 @@
 #Simplean.js 0.0.4
-*language：[English](README.en-us.md)*
 
 ## 目录
 - [简介](#introduce)
