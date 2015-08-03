@@ -1,6 +1,3 @@
-/**
-*   
-*/
 var Utility = (function (){
     return {
         each: function (obj, iterator) {
