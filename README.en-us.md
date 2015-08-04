@@ -100,7 +100,7 @@
 
 <a name="jq"></a>
 ## jQuery or Zepto
-如果你的项目中又jQuery或者Zepto，那么Simplean会自动注册为其插件，提供anTo、anAddClass、anRemoveClass三个API，分别与to、addClass、removeClass相对应，相当于加上了'an'前缀，简单示例:
+如果你的项目中有jQuery或者Zepto，Simplean会自动提供相应插件，插件注册anTo、anAddClass、anRemoveClass三个API，分别与to、addClass、removeClass相对应，简单示例:
 ````
     .rotate-30 {
         transform: rotate(30deg)
