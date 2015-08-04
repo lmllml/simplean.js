@@ -1,6 +1,6 @@
-#Simplean.js 0.0.4
+#Simplean.js 0.0.5
     
-[![npm](https://img.shields.io/badge/npm-0.0.4-orange.svg)](https://www.npmjs.com/package/simplean.js)
+[![npm](https://img.shields.io/badge/npm-0.0.5-orange.svg)](https://www.npmjs.com/package/simplean.js)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/liyandalmllml/simplean.js/blob/dev/LICENSE)
 
 ## 目录
@@ -93,10 +93,10 @@
         ease: 'ease-in',
     });
 ````
-<a name="jq"></a>
 
+<a name="jq"></a>
 ## jQuery or Zepto
-如果你使用jQuery或者Zepto，那么Simplean会自动注册为其插件，与to、addClass、removeClass相对应的API是anTo、anAddClass、anRemoveClass，相当于对API加上'an'前缀
+如果你的项目中又jQuery或者Zepto，那么Simplean会自动注册为其插件，提供anTo、anAddClass、anRemoveClass三个API，分别与to、addClass、removeClass相对应，相当于加上了'an'前缀，简单示例:
 ````
     .rotate-30 {
         transform: rotate(30deg)
@@ -107,7 +107,7 @@
     });
 ````
 
-如果$(dom)拥有多个dom元素，那么会遍历所有dom元素来分别执行相应操作。
+如果$(dom)是一个列表，那么会遍历列表中所有元素来调用相应API。
 <a name="compatibility"></a>
 ## 兼容性
 支持IOS6.0+、Android4.0+。

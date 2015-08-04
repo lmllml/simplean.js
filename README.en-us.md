@@ -1,29 +1,56 @@
-#Simplean.js
+# Simplean.js 0.0.5
 
-  * Focus on dom animation 
-  * Focus on mobile browser and advanced browser
-  * Simple api: to, addClass, removeClass
+[![npm](https://img.shields.io/badge/npm-0.0.5-orange.svg)](https://www.npmjs.com/package/simplean.js)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/liyandalmllml/simplean.js/blob/dev/LICENSE)
 
-## Usage
-````
-    .rect-200 {
-        width: 200px;
-        height: 200px;
-    }
+## Contents
+- [Overview](#introduce)
+- [Quick start](#quick-start)
+- [API](#all-api)
+  - [Simplean#to](#api-to)
+  - [Simplean#addClass](#api-add-class)
+  - [Simplean#removeClass](#api-remove-class)
+- [jQuery or Zepto](#jq)
+- [Compatibility](#compatibility)
+- [BUG](#bug)
+- [Changelog](#changeLog)
+- [LICENSE](#license)
 
-    Simplean(dom).addClass('rect-200', {
-        duration: 500,
-        delay: 100,
-        onStart: function () {
-            // do something
-        },
-        onStop: function () {
-            // do something
-        }
-    });
-````
+<a name="introduce"></a>
+## Overview
+* Focus on mobile browser and advanced browser
+* Focus on dom animation
+* Only provide three api: to, addClass, removeClass
+
+<a name="quick-start"></a>
+## Quick start
+1. 下载simplean.js文件到项目中
+
+2. 页面中引入simplean.js脚本
+
+    `<script type="text/javascript" src="***/simplean.js"></script>`
+
+3. 初始化Simplean实例
+    
+    ```
+    var dom = document.querySelector('div.animation');
+    var sp = Simplean(dom);
+    ```
+
+4. 配置你想要的动画效果
+ ```
+  sp.to({
+    width: '200px',
+    height: '200px',
+    border-radius: '50px'
+  });
+ ```
+
+<a name="all-api"></a>
+
 ## API
 
+<a name="api-to"></a>
 ### Simplean#to(styles[, options])
 ````
     Simplean(dom).to({
@@ -39,6 +66,8 @@
         ease: 'ease-out'
     });
 ````
+
+<a name="api-add-class"></a>
 ### Simplean#addClass(classNames[, options])
 ````
     .highlight {
@@ -57,6 +86,7 @@
     });
 ````
 
+<a name="api-remove-class"></a>
 ### Simplean#removeClass(classNames[, options])
 ````
     .rotate-30 {
@@ -68,13 +98,34 @@
     });
 ````
 
-## OPTIONS
+<a name="jq"></a>
+## jQuery or Zepto
+如果你的项目中又jQuery或者Zepto，那么Simplean会自动注册为其插件，提供anTo、anAddClass、anRemoveClass三个API，分别与to、addClass、removeClass相对应，相当于加上了'an'前缀，简单示例:
+````
+    .rotate-30 {
+        transform: rotate(30deg)
+    }
 
- All api in Simplean.js has a argument that is options which make the process of animation controable. Options is a object has six properties: delay, duration, ease, deep, onStart, onStop. 
- * `delay` - Delay means animation wait some time for starting.The default value is 0ms.
- * `duration` - Duration means animation running time.The default value is 300ms.
- * `ease` - Ease means animation timing function.In simple term, timing function is a function that caculate the instant status as time passing.The default is linear.
- * `deep` - For addClass and removeClass
- * `onStart` - The function invoked before animation starting.
- * `onStop` - The function invoked after animation stopping.
- 
+    $(dom).anRemoveClass('rotate-30', {
+        ease: 'ease-in',
+    });
+````
+
+如果$(dom)是一个列表，那么会遍历列表中所有元素来调用相应API。
+<a name="compatibility"></a>
+
+## Compatibility
+Support IOS6.0+、Android4.0+。
+
+<a name="bug"></a>
+## BUG
+Post a issue and we will deal with immediately.
+
+<a name="changeLog"></a>
+## Changelog
+[show detail](http://liyandalmllml.github.io/simplean.js)
+
+<a name="license"></a>
+## LICENSE
+MIT
+
