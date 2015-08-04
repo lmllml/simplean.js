@@ -339,6 +339,13 @@ Simplean.destroy = function (dom) {
     simpleanMap.remove(dom);
 };
 
+Simplean.noConflict = function (name) {
+    window.$A = Simplean._$A;
+    if (typeof name === 'string') {
+        window[name] = Simplean;
+    }
+};
+
 var _Simplean = function (dom) {
     this._dom = dom;
     this._phaseList = [];
@@ -515,8 +522,14 @@ _Simplean.prototype.to = function (styles, options) {
 };
 
 if (typeof window === 'object') {
-    window.Simplean = Simplean;
+    Simplean._$A = Simplean;
+    if (typeof window.$A !== 'undefined') {
+        Simplean._$A = window.$A;
+    }
+
+    window.$A = window.Simplean = Simplean;
 }
+
 if (typeof define !== 'undefined' &&  define.amd) {
     define(function () {
         return Simplean;
@@ -524,3 +537,22 @@ if (typeof define !== 'undefined' &&  define.amd) {
 } else if (typeof module === 'object' && typeof module.exports === 'object') {
     module.exports = Simplean;
 }
+
+// Add jQuery and Zepto plugin
+var jq = $ || jQuery || Zepto;
+if (typeof jq === 'function') {
+    (function () {
+        var mount = function (name) {
+            jq.fn['an' + Utility.firstUppercase(name)] = function () {
+                var args = arguments;
+                this.each(function (index, dom) {
+                    var sp = Simplean(dom);
+                    sp[name].apply(sp, args);
+                });    
+            };
+        };
+        mount('to');
+        mount('addClass');
+        mount('removeClass');
+    })();
+} 

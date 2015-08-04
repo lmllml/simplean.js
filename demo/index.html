@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+<script type="text/javascript" src="./zepto.js"></script>
 <script type="text/javascript" src="../build/simplean.js"></script>
 <script type="text/javascript">
     var disperse = function (onStop) {
@@ -33,11 +34,11 @@
                 return;
             }
 
-            document.body.appendChild(elems[index]);
+            $('body').append(elems[index]);
             var color = parseInt(255 / (index + 1));
             var x = -RADIUS * Math.sin(2 * Math.PI * index * ANGLE / 360);
             var y = -RADIUS * Math.cos(2 * Math.PI * index * ANGLE / 360);
-            Simplean(elems[index]).to({
+            $(elems[index]).anTo({
                 transform: 'translate(' + x +'px, ' + y + 'px) rotate(' + index * ANGLE + 'deg)',
                 background: 'rgb(' + color + ', ' + color + ', ' + color + ')'
             }, {

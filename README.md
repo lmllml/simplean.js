@@ -10,6 +10,7 @@
   - [Simplean#to](#api-to)
   - [Simplean#addClass](#api-add-class)
   - [Simplean#removeClass](#api-remove-class)
+- [jQuery or Zepto](#jq)
 - [兼容性](#compatibility)
 - [BUG](#bug)
 - [Changelog](#changeLog)
@@ -92,6 +93,21 @@
         ease: 'ease-in',
     });
 ````
+<a name="jq"></a>
+
+## jQuery or Zepto
+如果你使用jQuery或者Zepto，那么Simplean会自动注册为其插件，与to、addClass、removeClass相对应的API是anTo、anAddClass、anRemoveClass，相当于对API加上'an'前缀
+````
+    .rotate-30 {
+        transform: rotate(30deg)
+    }
+
+    $(dom).anRemoveClass('rotate-30', {
+        ease: 'ease-in',
+    });
+````
+
+如果$(dom)拥有多个dom元素，那么会遍历所有dom元素来分别执行相应操作。
 <a name="compatibility"></a>
 ## 兼容性
 支持IOS6.0+、Android4.0+。
