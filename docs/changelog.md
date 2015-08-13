@@ -1,5 +1,5 @@
 # Changelog
-### 0.1.0
+### 0.1.1
 
 修改不存在jquery时会报undefined的bug
 增加单元测试
