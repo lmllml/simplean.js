@@ -30,6 +30,6 @@
   },
   "scripts": {
     "dev": "node_modules/http-server/bin/http-server -p 8080",
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "./node_modules/karma/bin/karma start --single-run"
   }
 }
