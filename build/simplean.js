@@ -540,8 +540,16 @@ if (typeof define !== 'undefined' &&  define.amd) {
 }
 
 // Add jQuery and Zepto plugin
-var jq = $ || jQuery || Zepto;
-if (typeof jq === 'function') {
+var jq;
+if (typeof $ === 'function') {
+    jq = $;
+} else if (typeof jQuery === 'function') {
+    jq = jQuery;
+} else if (typeof Zepto === 'function') {
+    jq = Zepto;
+}
+
+if (jq) {
     (function () {
         var mount = function (name) {
             jq.fn['an' + Utility.firstUppercase(name)] = function () {

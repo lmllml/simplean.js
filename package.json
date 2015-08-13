@@ -1,6 +1,6 @@
 {
   "name": "simplean.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tool for simply creating dom animation.",
   "main": "build/simplean.js",
   "author": {
