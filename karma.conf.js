@@ -1,5 +1,5 @@
 module.exports = function (config) {
-    config.set({
+    var configuration = {
         basePath: __dirname + '/test/',
         files: [
             '../node_modules/jquery/dist/jquery.js',
@@ -22,5 +22,10 @@ module.exports = function (config) {
           }
         },
         reporters: ['mocha']
-    });
+    };
+
+    if (process.env.TRAVIS) {
+        configuration.browsers = ['Chrome_travis_ci'];
+    }
+    config.set(configuration);
 };
