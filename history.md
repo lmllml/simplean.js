@@ -1,4 +1,4 @@
-0.0.6 / 2015.8.13
+0.1.0 / 2015.8.13
 =====================
     * fix bug about jquery undefined
     * add unit test

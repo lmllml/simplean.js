@@ -1,7 +1,7 @@
-# Simplean.js 0.0.6
+# Simplean.js 0.1.0
 
 [![Build pass](https://travis-ci.org/liyandalmllml/simplean.js.svg?branch=master)](https://travis-ci.org/liyandalmllml/simplean.js)
-[![npm](https://img.shields.io/badge/npm-0.0.5-orange.svg)](https://www.npmjs.com/package/simplean.js)
+[![npm](https://img.shields.io/badge/npm-0.1.0-orange.svg)](https://www.npmjs.com/package/simplean.js)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/liyandalmllml/simplean.js/blob/dev/LICENSE)
 
 ## Contents
