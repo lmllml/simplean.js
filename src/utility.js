@@ -23,7 +23,7 @@ var Utility = (function (){
         extend: function (obj) {
             var toExtendObjs = [];
             for (var i = 1; i < arguments.length; i ++) {
-                toExtendObjs.unshift(arguments[i]);
+                toExtendObjs.push(arguments[i]);
             }
             Utility.each(toExtendObjs, function (toExtendObj) {
                 Utility.each(toExtendObj, function (key, value) {

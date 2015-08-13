@@ -1,6 +1,6 @@
 {
   "name": "simplean.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A tool for simply creating dom animation.",
   "main": "build/simplean.js",
   "author": {
@@ -11,15 +11,28 @@
   "license": "MIT",
   "repository": "liyandalmllml/simplean.js",
   "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-jquery": "^2.0.0",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
     "http-server": "^0.8.0",
-    "should": "^7.0.2"
+    "jquery": "^2.1.4",
+    "karma": "^0.13.8",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-cordova-launcher": "0.0.8",
+    "karma-fixture": "^0.2.5",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.1.1",
+    "should": "^7.0.2",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
   },
   "scripts": {
-    "dev": "node_modules/http-server/bin/http-server -p 8080"
+    "dev": "node_modules/http-server/bin/http-server -p 8080",
+    "test": "./node_modules/karma/"
   }
 }
