@@ -14,7 +14,7 @@ module.exports = function (config) {
             'simplean-test.js'
         ],
         frameworks: ['mocha', 'fixture'],
-        browsers: ['Chrome'],
+        browsers: ['Firefox'],
         reporters: ['progress', 'mocha']
     });
 };
