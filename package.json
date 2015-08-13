@@ -1,0 +1,7 @@
+{
+  "name": "simplean.js",
+  "description": "docs for simplean.js",
+  "scripts": {
+    "deploy": "iojs ./bin/deploy.js"
+  }
+}
