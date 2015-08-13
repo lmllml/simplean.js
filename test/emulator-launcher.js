@@ -11,10 +11,10 @@ var emulatorList = [
     'android5',
     'android6',
     'android7',
-    'android9',
-    'android10',
-    'android11',
-    'android12'
+    'android9'
+    // 'android10',
+    // 'android11',
+    // 'android12'
 ];
 
 var cmdList = [];
