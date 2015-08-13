@@ -1,4 +1,13 @@
 # Changelog
+### 0.1.0
+
+修改不存在jquery时会报undefined的bug
+增加单元测试
+
+### 0.0.5
+
+在window中添加$A别名
+添加jquery和zepto插件
 
 ### 0.0.4
 
