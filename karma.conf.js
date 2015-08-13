@@ -15,6 +15,12 @@ module.exports = function (config) {
         ],
         frameworks: ['mocha', 'fixture'],
         browsers: ['Chrome'],
+        customLaunchers: {
+          Chrome_travis_ci: {
+            base: 'Chrome',
+            flags: ['--no-sandbox']
+          }
+        },
         reporters: ['mocha']
     });
 };
