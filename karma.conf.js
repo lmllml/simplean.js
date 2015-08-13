@@ -15,6 +15,6 @@ module.exports = function (config) {
         ],
         frameworks: ['mocha', 'fixture'],
         browsers: ['Firefox'],
-        reporters: ['progress', 'mocha']
+        reporters: ['mocha']
     });
 };

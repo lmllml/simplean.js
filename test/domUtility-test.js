@@ -76,11 +76,13 @@ describe('DomUtility', function () {
         var getValue = function (property) {
             var value = $dom.css(cssPrefix + 'transition-' + property);
             var durationList = value.split(',').map(function (duration) {
-                duration = duration.trim().replace('s', '');
+                duration = duration.trim();
                 if (duration.length > 5) {
-                    duration = duration.slice(0, 5) + 's'; 
+                    duration = duration.slice(0, 5); 
                 }
+                duration = duration.replace('s', '');
                 duration = Number(duration);
+
                 return duration + 's';
             });
             return durationList.join(', ');
@@ -90,23 +92,23 @@ describe('DomUtility', function () {
             DomUtility.addTransition($dom[0], ['width', 'height'], {
                 delay: '0ms',
                 duration: '100ms',
-                ease: 'linear'
+                ease: 'cubic-bezier(0, 0, 1, 1)'
             });
 
             $dom.should.have.css(cssPrefix + 'transition-property', 'width, height');
             getValue('delay').should.be.equal('0s, 0s');
             getValue('duration').should.be.equal('0.1s, 0.1s');
-            $dom.should.have.css(cssPrefix + 'transition-timing-function', 'linear, linear');
+            $dom.should.have.css(cssPrefix + 'transition-timing-function', 'cubic-bezier(0, 0, 1, 1), cubic-bezier(0, 0, 1, 1)');
 
             DomUtility.addTransition($dom[0], ['color', 'font-size'], {
                 delay: '100ms',
                 duration: '200ms',
-                ease: 'ease-out'
+                ease: 'cubic-bezier(0, 0, 0.5, 0.5)'
             });
             $dom.should.have.css(cssPrefix + 'transition-property', 'width, height, color, font-size');
             getValue('delay').should.be.equal('0s, 0s, 0.1s, 0.1s');
             getValue('duration').should.be.equal('0.1s, 0.1s, 0.2s, 0.2s');
-            $dom.should.have.css(cssPrefix + 'transition-timing-function', 'linear, linear, ease-out, ease-out');
+            $dom.should.have.css(cssPrefix + 'transition-timing-function', 'cubic-bezier(0, 0, 1, 1), cubic-bezier(0, 0, 1, 1), cubic-bezier(0, 0, 0.5, 0.5), cubic-bezier(0, 0, 0.5, 0.5)');
         });
     });
 

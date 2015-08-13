@@ -6,10 +6,10 @@ var consoleport = 5554;
 var adbport = 5555;
 
 var emulatorList = [
-    'android3',
-    'android4', 
-    'android5',
-    'android6',
+    // 'android3',
+    // 'android4', 
+    // 'android5',
+    // 'android6',
     'android7',
     'android9'
     // 'android10',
